@@ -19,7 +19,6 @@ document.querySelector(".startButton").addEventListener("click", () => {
     { x: -90, y: 0, label: "未知冒險" }, //bottom
   ];
   const randomResult = Math.floor(Math.random() * themes.length);
-
   // 等待 5 秒後顯示結果
   setTimeout(() => {
     resultLabel.textContent = face[randomResult];
