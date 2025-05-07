@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.contrib import admin
+from django.urls import path, include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('traveler/', include('traveler.urls')),  
+    path('emotion/', include('emotion.urls')),  
+    path('fate-dice/', include('fate_dice.urls')),  
+    path('planner/', include('planner.urls')),  
 ]
 
 
