@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # 設定 Gemini API 金鑰
-genai.configure(api_key="AIzaSyCABin-XMUmwI2eZvqG39nICM49dCvx-nE")
+genai.configure(api_key="AIzaSyAGsPf8khZvCh6g_4PIhQ1ltUJKV-11lu0")
 
 @csrf_exempt
 def generate_itinerary(request):
@@ -20,7 +20,7 @@ def generate_itinerary(request):
     start_date = request.POST.get('start_date', '2025-06-01')
     end_date = request.POST.get('end_date', '2025-06-04')
     budget = request.POST.get('budget', 6000)
-    preference = request.POST.get('preference', 'Romantic')
+    preference = request.POST.get('preference', 'Food')
 
     # 定義景點與活動
     destinations = [
@@ -54,7 +54,7 @@ def generate_itinerary(request):
     prompt = build_prompt(destinations, activities, start_date, end_date, budget, preference)
 
     try:
-        model = genai.GenerativeModel(model_name="gemini-1.5-pro")
+        model = genai.GenerativeModel(model_name="gemini-1.5-flash")
         response = model.generate_content(prompt)
 
         itinerary_text = response.text.strip()
