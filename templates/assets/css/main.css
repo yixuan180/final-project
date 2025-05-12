@@ -479,7 +479,7 @@ hr:after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: white;
   background: #94a2bf;
@@ -492,6 +492,7 @@ hr:after {
   z-index: 999;
   text-align: center;
 }
+
 
 #resultLabel.show {
   transform: translate(-50%, -50%) scale(1);
