@@ -419,7 +419,7 @@ hr:after {
   height: 300px;
   perspective: 1000px;
   margin: 2rem auto;
-  padding-top: 20px;
+  padding-top: 10px;
   position: relative;
 }
 
@@ -447,6 +447,7 @@ hr:after {
   object-fit: cover;
   display: block;
 }
+
 .cube__face--front {
   transform: rotateY(0deg) translateZ(150px);
 }
@@ -466,12 +467,37 @@ hr:after {
   transform: rotateX(-90deg) translateZ(150px);
 }
 
+.dice-container {
+  display: flex;
+  gap: 2.5rem;
+}
+/*resultBox*/
+.dice-result {
+  width: 150px;
+  padding: 15%;
+  border: 2px solid #fc0f0f;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+
 /*StratButton*/
 .Start {
-  position: relative;
-  width: auto;
+  width: 100%;
   align-items: center;
-  padding: 25px 0 0px 70%;
+  padding: 50px 0 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.startButton {
+  font-size: 1.5rem;
+  padding: 1em 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 #resultLabel {
@@ -492,7 +518,6 @@ hr:after {
   z-index: 999;
   text-align: center;
 }
-
 
 #resultLabel.show {
   transform: translate(-50%, -50%) scale(1);
