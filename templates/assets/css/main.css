@@ -2351,15 +2351,6 @@ button.alt:hover,
   background: #3b353c;
 }
 
-.startButton {
-  display: inline-block;
-  font-size: 1.8rem;
-  padding: 1em 1.5em;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 /* Post */
 
 .post.stub {
