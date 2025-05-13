@@ -45,50 +45,68 @@
                   <p>骰子結束運行後，會隨機提供您一個旅遊主題</p>
                 </header>
                 <section>
-                  <div class="scene">
-                    <div class="cube">
-                      <div
-                        class="cube__face cube__face--front"
-                        data-result="美食"
-                      >
-                        <img src="./images/S__80904432_0.jpg" alt="美食" />
-                      </div>
-                      <div
-                        class="cube__face cube__face--back"
-                        data-result="自然風景"
-                      >
-                        <img src="./images/S__80904431_0.jpg" alt="自然風景" />
-                      </div>
-                      <div
-                        class="cube__face cube__face--right"
-                        data-result="文化歷史"
-                      >
-                        <img src="./images/S__80904430_0.jpg" alt="文化歷史" />
-                      </div>
-                      <div
-                        class="cube__face cube__face--left"
-                        data-result="冒險活動"
-                      >
-                        <img src="./images/S__80904429_0.jpg" alt="冒險活動" />
-                      </div>
-                      <div
-                        class="cube__face cube__face--top"
-                        data-result="購物娛樂"
-                      >
-                        <img src="./images/S__80904428_0.jpg" alt="購物娛樂" />
-                      </div>
-                      <div
-                        class="cube__face cube__face--bottom"
-                        data-result="休閒放鬆"
-                      >
-                        <img src="./images/S__80904427_0.jpg" alt="休閒放鬆" />
+                  <div class="dice-container">
+                    <div class="scene">
+                      <div class="cube">
+                        <div
+                          class="cube__face cube__face--front"
+                          data-result="美食"
+                        >
+                          <img src="./images/S__80904432_0.jpg" alt="美食" />
+                        </div>
+                        <div
+                          class="cube__face cube__face--back"
+                          data-result="自然風景"
+                        >
+                          <img
+                            src="./images/S__80904431_0.jpg"
+                            alt="自然風景"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--right"
+                          data-result="文化歷史"
+                        >
+                          <img
+                            src="./images/S__80904430_0.jpg"
+                            alt="文化歷史"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--left"
+                          data-result="冒險活動"
+                        >
+                          <img
+                            src="./images/S__80904429_0.jpg"
+                            alt="冒險活動"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--top"
+                          data-result="購物娛樂"
+                        >
+                          <img
+                            src="./images/S__80904428_0.jpg"
+                            alt="購物娛樂"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--bottom"
+                          data-result="休閒放鬆"
+                        >
+                          <img
+                            src="./images/S__80904427_0.jpg"
+                            alt="休閒放鬆"
+                          />
+                        </div>
                       </div>
                     </div>
+                    <div class="dice-result" id="resultBox"></div>
                   </div>
                   <div class="Start">
                     <button class="startButton">點擊開始</button>
+                    <div id="resultLabel">🎲</div>
                   </div>
-                  <div id="resultLabel">🎲 1</div>
                 </section>
               </article>
             </div>
