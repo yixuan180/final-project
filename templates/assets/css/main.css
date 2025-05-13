@@ -419,7 +419,7 @@ hr:after {
   height: 300px;
   perspective: 1000px;
   margin: 2rem auto;
-  padding-top: 20px;
+  padding-top: 10px;
   position: relative;
 }
 
@@ -436,14 +436,16 @@ hr:after {
   position: absolute;
   width: 300px;
   height: 300px;
-  border: 2px solid #38393a;
-  background: #f0f0f0;
-  line-height: 300px;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #4c4c4d;
-  text-align: center;
-  transform-origin: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+}
+.cube__face img {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
 }
 
 .cube__face--front {
@@ -465,12 +467,37 @@ hr:after {
   transform: rotateX(-90deg) translateZ(150px);
 }
 
+.dice-container {
+  display: flex;
+  gap: 2.5rem;
+}
+/*resultBox*/
+.dice-result {
+  width: 150px;
+  padding: 15%;
+  border: 2px solid #fc0f0f;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+
 /*StratButton*/
 .Start {
-  position: relative;
-  width: auto;
+  width: 100%;
   align-items: center;
-  padding: 25px 0 0px 70%;
+  padding: 50px 0 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.startButton {
+  font-size: 1.5rem;
+  padding: 1em 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 #resultLabel {
@@ -478,7 +505,7 @@ hr:after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: white;
   background: #94a2bf;
@@ -2322,15 +2349,6 @@ input[type="reset"].alt:hover,
 button.alt:hover,
 .button.alt:hover {
   background: #3b353c;
-}
-
-.startButton {
-  display: inline-block;
-  font-size: 1.8rem;
-  padding: 1em 1.5em;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 /* Post */
