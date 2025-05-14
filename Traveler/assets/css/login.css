@@ -1,0 +1,105 @@
+/* 全局樣式設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* 背景與置中容器 */
+body {
+background-image: url("../../images/messageImage_1746605294770_0.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+/* 卡片容器樣式 */
+.login-container {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 360px;
+  box-sizing: border-box;
+}
+
+/* 標題 */
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* 輸入欄位 */
+.login-container input[type="text"],
+.login-container input[type="password"],
+.login-container input[type="email"] {
+  width: 100%;
+  padding: 12px 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #f8f1f6;
+}
+
+/* 聚焦時變色 */
+.login-container input:focus {
+  outline: none;
+  border-color: #f69cb8;
+  background-color: #feebf5;
+}
+
+/* 保持登入 checkbox 行 */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* 登入按鈕 */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f993ad;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #dc8399;
+}
+
+/* 底部超連結 */
+.links {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+}
+
+.links a {
+  color: #ef88a2;;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+/* 修正自動填入時藍色背景 */
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px#feebf5 inset !important; 
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
