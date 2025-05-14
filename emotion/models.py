@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import json
 
+
 class Emotion_Type(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name="情緒類型名稱")
     
@@ -11,7 +12,7 @@ class Emotion_Type(models.Model):
     class Meta:
         verbose_name = "情緒類型"
         verbose_name_plural = "情緒類型"
-        
+
 class Emotion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     emotion_type = models.ForeignKey(Emotion_Type, on_delete=models.CASCADE, related_name='user_emotions', verbose_name="情緒類型")
