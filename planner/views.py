@@ -36,7 +36,7 @@ def generate_itinerary(request):
         recommended_for__icontains=theme
     ))
 
-    prompt = build_prompt(destinations, activities, region, start_date, end_date, budget, preference)
+    prompt = build_prompt(destinations, activities, region, start_date, end_date, budget, theme)
 
     try:
         model = genai.GenerativeModel(model_name="gemini-1.5-flash")
