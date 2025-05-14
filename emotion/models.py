@@ -1,9 +1,9 @@
 from django.db import models
-from planner.models import Users
+from django.contrib.auth.models import User
 import json
 
 class Emotion(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     emotion_type = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     

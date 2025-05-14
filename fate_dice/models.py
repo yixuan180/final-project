@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from planner.models import Travel_Themes, Destination, Activities, Itinerary
+# 使用 as 別名解決命名衝突
+from planner.models import Destination as PlannerDestination
+from planner.models import Activities as PlannerActivities
+from planner.models import Itinerary as PlannerItinerary
+from planner.models import Travel_Themes
 import json
 
 # Create your models here.
@@ -18,9 +22,9 @@ class Theme_Random_Dice(models.Model):
         verbose_name_plural = "主題隨機骰子"
         ordering = ['-created_at']
 
-class Destination(models.Model):
+class DestinationDice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dice_destinations', verbose_name="使用者")
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='dice_entries', verbose_name="隨機景點")
+    destination = models.ForeignKey(PlannerDestination, on_delete=models.CASCADE, related_name='dice_entries', verbose_name="隨機景點")
     theme_dice = models.ForeignKey(Theme_Random_Dice, on_delete=models.CASCADE, related_name='destinations', verbose_name="關聯主題擲骰")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="擲骰時間")
     
@@ -32,10 +36,10 @@ class Destination(models.Model):
         verbose_name_plural = "景點骰子"
         ordering = ['-created_at']
 
-class Activities(models.Model):
+class ActivityDice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dice_activities', verbose_name="使用者")
-    activity = models.ForeignKey(Activities, on_delete=models.CASCADE, related_name='dice_entries', verbose_name="隨機活動")
-    destination_dice = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='activities', verbose_name="關聯景點擲骰")
+    activity = models.ForeignKey(PlannerActivities, on_delete=models.CASCADE, related_name='dice_entries', verbose_name="隨機活動")
+    destination_dice = models.ForeignKey(DestinationDice, on_delete=models.CASCADE, related_name='activities', verbose_name="關聯景點擲骰")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="擲骰時間")
     
     def __str__(self):
@@ -46,9 +50,9 @@ class Activities(models.Model):
         verbose_name_plural = "活動骰子"
         ordering = ['-created_at']
 
-class Itinerary(models.Model):
+class ItineraryDice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dice_itineraries', verbose_name="使用者")
-    itinerary = models.ForeignKey(Itinerary, on_delete=models.CASCADE, related_name='dice_source', verbose_name="生成的行程", null=True, blank=True)
+    itinerary = models.ForeignKey(PlannerItinerary, on_delete=models.CASCADE, related_name='dice_source', verbose_name="生成的行程", null=True, blank=True)
     theme_dice = models.ForeignKey(Theme_Random_Dice, on_delete=models.CASCADE, related_name='itineraries', verbose_name="使用的主題骰子")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="生成時間")
     
