@@ -1,4 +1,4 @@
-from planner.models import Destination, Activities
+from planner.models import Destination
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random
