@@ -1,4 +1,4 @@
-from planner.models import Destination, Activities
+from planner.models import Destination
 import re
 import google.generativeai as genai
 from django.http import JsonResponse
@@ -30,13 +30,7 @@ def generate_itinerary(request):
         theme__name__icontains=theme
     ))
 
-    # 過濾活動：景點地區符合，且活動本身也屬於這個主題（推薦主題包含）
-    activities = list(Activities.objects.filter(
-        destination__address__icontains=region,
-        recommended_for__icontains=theme
-    ))
-
-    prompt = build_prompt(destinations, activities, region, start_date, end_date, budget, theme)
+    prompt = build_prompt(destinations, region, start_date, end_date, budget, theme)
 
     try:
         model = genai.GenerativeModel(model_name="gemini-1.5-flash")
@@ -59,9 +53,8 @@ def generate_itinerary(request):
             "data": None
         }, status=500)
 
-def build_prompt(destinations, activities, region, start_date, end_date, budget, theme):
+def build_prompt(destinations, region, start_date, end_date, budget, theme):
     destination_list = "\n".join([f"- {d.name}：{d.description}" for d in destinations])
-    activity_list = "\n".join([f"- {a.name}：{a.description}" for a in activities])
 
     prompt = f"""
 你是一位台灣旅遊行程規劃師，請根據以下條件為我設計一份完整的行程。請用繁體中文生成並保證以下所有條件：
@@ -75,9 +68,6 @@ def build_prompt(destinations, activities, region, start_date, end_date, budget,
 
 景點：
 {destination_list}
-
-活動：
-{activity_list}
 
 請用文字生成以下行程（每天都包含早上、下午、晚上三個時段的活動安排），並按照以下範本來回覆：
 

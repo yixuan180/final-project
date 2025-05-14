@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 
 @csrf_exempt
-def roll_dice(request):
+def generate_by_emotion(request):
     if request.method != 'POST':
         return JsonResponse({
             "success": False,
