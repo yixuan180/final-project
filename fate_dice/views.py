@@ -28,32 +28,15 @@ def roll_dice(request):
     # 隨機抽五個
     selected = random.sample(list(filtered_destinations), min(5, len(filtered_destinations)))
 
-    # 建立包含活動的資料結構
-    data = []
-    for d in selected:
-        # 找出這個景點的所有活動
-        activity_list = Activities.objects.filter(destination=d)
-
-        activity_data = [{
-            "id": a.id,
-            "name": a.name,
-            "description": a.description,
-            "image_url": a.image_url,
-            "location": a.location,
-            "price_range": f"{a.min_price} ~ {a.max_price}",
-            "duration": a.duration
-        } for a in activity_list]
-
-        data.append({
-            "id": d.id,
-            "name": d.name,
-            "description": d.description,
-            "image_url": d.image_url,
-            "address": d.address,
-            "category": d.get_category(),
-            "price_range": f"{d.min_price} ~ {d.max_price}",
-            "activities": activity_data  # <-- 多這個欄位
-        })
+    data = [{
+        "id": d.id,
+        "name": d.name,
+        "description": d.description,
+        "image_url": d.image_url,
+        "address": d.address,
+        "category": d.get_category(),
+        "price_range": f"{d.min_price} ~ {d.max_price}"
+    } for d in selected]
 
     return JsonResponse({
         "success": True,
