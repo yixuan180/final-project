@@ -27,7 +27,7 @@ def generate_itinerary(request):
     # 過濾符合主題與地區的景點
     destinations = list(Destination.objects.filter(
         address__icontains=region,
-        theme__name__icontains=theme
+        theme__icontains=theme
     ))
 
     prompt = build_prompt(destinations, region, start_date, end_date, budget, theme)

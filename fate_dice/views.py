@@ -22,7 +22,7 @@ def roll_dice(request):
     # 根據縣市＋主題篩選景點
     filtered_destinations = Destination.objects.filter(
         address__icontains=region,
-        theme__name__icontains=selected_theme
+        theme__icontains=selected_theme
     )
     
     # 隨機抽五個
