@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from emotion.models import Emotion_Type  # 引入情緒類型
 import json
 
 class Travel_Themes(models.Model):
@@ -24,6 +25,7 @@ class Destination(models.Model):
     image_url = models.URLField(verbose_name="景點圖片URL")
     theme = models.ForeignKey(Travel_Themes, on_delete=models.CASCADE, related_name='destinations', verbose_name="旅行主題")
     category = models.TextField(verbose_name="類別")
+    suitable_emotions = models.ManyToManyField(Emotion_Type, related_name='suitable_destinations', verbose_name="適合情緒類型", blank=True)
     opening_hours = models.TextField(verbose_name="營業時間")
     min_price = models.FloatField(verbose_name="最低費用")
     max_price = models.FloatField(verbose_name="最高費用") 
@@ -51,6 +53,7 @@ class Activities(models.Model):
     theme = models.ForeignKey(Travel_Themes, on_delete=models.CASCADE, related_name='activities', verbose_name="旅行主題")
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='activities', verbose_name="關聯景點")
     recommended_for = models.TextField(verbose_name="適合的旅行主題")  # 存儲JSON格式的推薦主題
+    suitable_emotions = models.ManyToManyField(Emotion_Type, related_name='suitable_activities', verbose_name="適合情緒類型", blank=True)
     min_price = models.FloatField(verbose_name="最低費用")
     max_price = models.FloatField(verbose_name="最高費用")
     duration = models.IntegerField(verbose_name="活動時間(分鐘)")
@@ -79,7 +82,6 @@ class Itinerary(models.Model):
     end_date = models.DateField(verbose_name="行程結束日期")
     min_budget = models.FloatField(verbose_name="最低預算")
     max_budget = models.FloatField(verbose_name="最高預算")
-    total_cost = models.FloatField(verbose_name="旅遊預算")
     
     def __str__(self):
         return f"{self.user.username}的行程 ({self.start_date} - {self.end_date})"
