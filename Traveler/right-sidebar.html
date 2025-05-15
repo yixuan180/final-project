@@ -12,48 +12,158 @@
     <noscript
       ><link rel="stylesheet" href="assets/css/noscript.css"
     /></noscript>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body class="right-sidebar is-preload">
     <div id="page-wrapper">
-     
-        
+      <!-- Header -->
+      <div id="header">
+        <!-- Inner -->
+        <div class="inner">
+          <header>
+            <h1><a href="index.html" id="logo">擲出屬於你的旅程</a></h1>
+          </header>
+        </div>
+
         <!-- Nav -->
         <nav id="nav">
           <ul>
             <li><a href="index.html">首頁</a></li>
-            <li><a href="left-sidebar.html">智慧旅行排程</a></li>
+            <li><a href="left-sidebar.html">自訂旅行排程</a></li>
             <li><a href="right-sidebar.html">命運骰子</a></li>
             <li><a href="no-sidebar.html">情緒導向推薦</a></li>
           </ul>
         </nav>
-     
+      </div>
 
       <!-- Main -->
+
       <div class="wrapper style1">
         <div class="container">
           <div class="row gtr-200">
             <div class="col-8 col-12-mobile" id="content">
+              <article id="main" class="special">
+                <div class="emotiondate">
+                  <div class="dateheader">
+                    <h2><i class="fa-solid fa-arrow-right"></i>&nbsp;Step 1</h2>
+                    <br />
+                  </div>
+                  <form id="customScheduleForm" class="row gtr-50">
+                    <div class="col-12">
+                      <label for="datechosen" class="form-label"
+                        >選擇縣市 &nbsp;<i class="fa-solid fa-city"></i
+                      ></label>
+                      <select id="datechosen" class="form-select" required>
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">1天</option>
+                        <option value="2">2天</option>
+                        <option value="3">3天</option>
+                        <option value="4">4天</option>
+                        <option value="5">5天</option>
+                        <option value="6">6天</option>
+                        <option value="7">7天</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+              </article>
+              <hr />
               <article id="main">
-                <header class="major">
-                  <h2>擲出屬於你的旅程</h2>
-                  <p>骰子結束運行後，會隨機提供您一個旅遊主題</p>
-                </header>
-                <section>
-                  <div class="scene">
-                    <div class="cube">
-                      <div class="cube__face cube__face--front">1</div>
-                      <div class="cube__face cube__face--back">2</div>
-                      <div class="cube__face cube__face--right">3</div>
-                      <div class="cube__face cube__face--left">4</div>
-                      <div class="cube__face cube__face--top">5</div>
-                      <div class="cube__face cube__face--bottom">6</div>
+                <header>
+                  <div class="emotiondate">
+                    <div class="dateheader">
+                      <h2>
+                        <i class="fa-solid fa-arrow-right"></i>&nbsp;Step 2
+                      </h2>
+                      <br />
+                      <h3>
+                        等待骰子結束運行後將提供您一個旅遊主題&nbsp;<i
+                          class="fa-solid fa-dice"
+                        ></i>
+                      </h3>
                     </div>
                   </div>
-                  <div class="Start">
-                    <button class="startButton">點擊開始</button>
+                </header>
+                <br /><br />
+                <section>
+                  <div class="dice-container">
+                    <div class="scene">
+                      <div class="cube">
+                        <div
+                          class="cube__face cube__face--front"
+                          data-result="美食之旅"
+                        >
+                          <img
+                            src="./images/S__80920580_0.jpg"
+                            alt="美食之旅"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--back"
+                          data-result="自然風景"
+                        >
+                          <img
+                            src="./images/S__80920581_0.jpg"
+                            alt="自然風景"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--right"
+                          data-result="文化歷史"
+                        >
+                          <img
+                            src="./images/S__80920582_0.jpg"
+                            alt="文化歷史"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--left"
+                          data-result="冒險活動"
+                        >
+                          <img
+                            src="./images/S__80920583_0.jpg"
+                            alt="冒險活動"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--top"
+                          data-result="購物娛樂"
+                        >
+                          <img
+                            src="./images/S__80920584_0.jpg"
+                            alt="購物娛樂"
+                          />
+                        </div>
+                        <div
+                          class="cube__face cube__face--bottom"
+                          data-result="休閒放鬆"
+                        >
+                          <img
+                            src="./images/S__80920585_0 (1).jpg"
+                            alt="休閒放鬆"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dice-result" id="resultBox">
+                      <h3>您的旅遊主題為：</h3>
+                      <br />
+                      <div class="diceinner">
+                        <div id="resultLabel"></div>
+                      </div>
+                      <div class="Start">
+                        <button class="startButton">點擊開始</button>
+                      </div>
+                    </div>
                   </div>
-                  <div id="resultLabel">🎲 1</div>
                 </section>
+                <hr />
+                <div class="startRec">
+                  <button type="submit" class="startRec">開始推薦</button>
+                </div>
               </article>
             </div>
           </div>
