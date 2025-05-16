@@ -1,0 +1,30 @@
+# 核心套件
+Django==5.2
+python-dotenv==1.0.0
+
+# 資料庫相關
+psycopg2-binary==2.9.9  # 若使用 PostgreSQL
+mysqlclient==2.2.0      # 若使用 MySQL
+# 若使用 SQLite，則無需額外套件
+
+# API 相關
+djangorestframework==3.15.0
+google-generativeai==0.3.1
+
+# 安全性相關
+django-cors-headers==4.3.1
+django-allauth==0.56.1
+
+# 部署相關
+gunicorn==21.2.0
+whitenoise==6.5.0
+
+# 開發工具
+django-debug-toolbar==4.2.0
+
+# 測試相關
+pytest==7.4.0
+pytest-django==4.5.2
+
+# 文件相關
+Pillow==10.0.1
