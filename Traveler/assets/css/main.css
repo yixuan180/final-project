@@ -418,8 +418,8 @@ hr:after {
   width: 300px;
   height: 300px;
   perspective: 1000px;
-  margin: 2rem auto;
-  padding-top: 20px;
+  margin: 1rem auto;
+  padding-top: 10px;
   position: relative;
 }
 
@@ -436,14 +436,16 @@ hr:after {
   position: absolute;
   width: 300px;
   height: 300px;
-  border: 2px solid #38393a;
-  background: #f0f0f0;
-  line-height: 300px;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #4c4c4d;
-  text-align: center;
-  transform-origin: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+}
+.cube__face img {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
 }
 
 .cube__face--front {
@@ -465,36 +467,108 @@ hr:after {
   transform: rotateX(-90deg) translateZ(150px);
 }
 
-/*StratButton*/
-.Start {
-  position: relative;
-  width: auto;
+.dice-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4rem;
+  padding: 1rem;
+}
+/*resultBox*/
+.dice-result {
+  width: 400px;
+  height: 350px;
+  padding: 0;
+  display: flex;
   align-items: center;
-  padding: 25px 0 0px 70%;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.diceinner {
+  width: 350px;
+  height: 100px;
+  border: 5px solid rgb(9, 14, 84);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #resultLabel {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
   font-size: 4rem;
   font-weight: bold;
-  color: white;
-  background: #94a2bf;
-  padding: 3rem 5rem;
-  text-shadow: 0 0 10px black;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  pointer-events: none;
+  color: #4c5252;
   opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  z-index: 999;
-  text-align: center;
+  transition: opacity 0.5s ease;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 #resultLabel.show {
-  transform: translate(-50%, -50%) scale(1);
   opacity: 1;
+}
+
+/*StratButton*/
+.Start {
+  width: 100%;
+  align-items: center;
+  padding: 40px 0 0px 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.startButton {
+  font-size: 1.5rem;
+  width: 250px; /* 自行調整寬度 */
+  padding: 10px 0 10px;
+  margin-top: 0%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.startRec {
+  font-size: 1.5rem;
+  width: 300px; /* 自行調整寬度 */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 70px;
+  margin: 0 auto;
+  margin-top: -10px;
+}
+
+/*Emotion*/
+.dateheader {
+  align-items: center;
+  text-align: center;
+}
+
+.emotion-container {
+  display: flex;
+  width: 100%;
+  max-height: 70%;
+  gap: 10px;
+}
+.firstemo {
+  width: 25%;
+  height: 50%;
+  display: flex;
+}
+.firstemo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.firstemo.selected {
+  border: 5px solid rgb(171, 95, 148);
+  border-radius: 8px;
 }
 /* Row */
 
