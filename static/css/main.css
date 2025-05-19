@@ -523,12 +523,11 @@ hr:after {
 .startButton {
   font-size: 1.5rem;
   width: 250px; /* 自行調整寬度 */
-  padding: 10px 0 10px;
-  margin-top: 0%;
+  padding: 10px 0 10px 0;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  height: 70px;
+  height: 100px;
   margin: 0 auto;
 }
 
@@ -2064,7 +2063,6 @@ header.major h2 {
   margin-top: 40px;
 }
 
-
 header > p {
   display: block;
   font-size: 1.5em;
@@ -2613,13 +2611,13 @@ body.homepage.is-preload #header:after {
 }
 
 #nav > ul {
-  line-height: 0px!important;
-  position: relative!important;
-  display: inline-block!important;
-  margin: 0!important;
-  height: 21px!important;
-  border-left: solid 1px rgba(164, 11, 11, 0.35)!important;
-  border-right: solid 1px rgba(164, 11, 11, 0.35)!important;
+  line-height: 0px !important;
+  position: relative !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  height: 21px !important;
+  border-left: solid 1px rgba(164, 11, 11, 0.35) !important;
+  border-right: solid 1px rgba(164, 11, 11, 0.35) !important;
   font-size: 20px;
 }
 
@@ -2632,8 +2630,8 @@ body.homepage.is-preload #header:after {
   top: 50%;
   margin-top: -2px;
   height: 5px;
-  border-top: solid 1px  rgba(164, 11, 11, 0.35)!important;
-  border-bottom: solid 1px  rgba(164, 11, 11, 0.35)!important;
+  border-top: solid 1px rgba(164, 11, 11, 0.35) !important;
+  border-bottom: solid 1px rgba(164, 11, 11, 0.35) !important;
 }
 
 #nav > ul:before {
@@ -3357,5 +3355,4 @@ body.homepage.is-preload #header:after {
   .carousel article .image {
     margin-bottom: 2em;
   }
-
 }
