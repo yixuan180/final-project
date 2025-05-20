@@ -501,7 +501,6 @@ hr:after {
   font-weight: bold;
   color: #4c5252;
   opacity: 0;
-  transition: opacity 0.5s ease;
   letter-spacing: 0.05em;
   line-height: 1.2;
   white-space: nowrap;
@@ -569,6 +568,38 @@ hr:after {
   border: 5px solid rgb(171, 95, 148);
   border-radius: 8px;
 }
+
+.modal {
+  display: none; /* 不要一開始就出現 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  position: relative;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 /* Row */
 
 .row {
