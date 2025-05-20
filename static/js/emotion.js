@@ -1,61 +1,51 @@
 const emotionButtons = document.querySelectorAll(".firstemo");
-const citySelect = document.getElementById("city");
-const submitBtn = document.getElementById("openModalBtn");
-
-const modal = document.getElementById("myModal");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const modalText = document.getElementById("modalText");
+const daySelect = document.getElementById("datechosen");
+const submitBtn = document.getElementById("submitBtn");
 
 let selectedEmotion = null;
 
 // 點選情緒圖片
 emotionButtons.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 阻止 <a> 跳轉
+
+    // 移除所有選擇
     emotionButtons.forEach((b) => b.classList.remove("selected"));
+
+    // 標示選取
     btn.classList.add("selected");
+
     selectedEmotion = btn.getAttribute("data-index");
+
     checkFormValid();
   });
 });
 
-// 檢查是否能啟用按鈕
+// 監聽下拉選單
+daySelect.addEventListener("change", () => {
+  checkFormValid();
+});
+
+// 檢查表單狀態
 function checkFormValid() {
-  submitBtn.disabled = !(selectedEmotion && citySelect.value !== "");
+  if (selectedEmotion && daySelect.value !== "") {
+    submitBtn.disabled = false;
+  } else {
+    submitBtn.disabled = true;
+  }
 }
 
-citySelect.addEventListener("change", checkFormValid);
+// 初始禁用按鈕
+submitBtn.disabled = true;
 
-// 模擬推薦結果
-function getRecommendation(emotion, city) {
-  return "推薦景點 A、B、C";
-}
-
-// 點擊「開始推薦」顯示 Modal
+// 按鈕點擊事件
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  if (!selectedEmotion && citySelect.value === "") {
-    alert("請選擇一個情緒與縣市！");
-    return;
-  } else if (!selectedEmotion) {
-    alert("請先選擇一個情緒！");
-    return;
-  } else if (citySelect.value === "") {
-    alert("請先選擇一個縣市！");
-    return;
-  }
-  const cityName = citySelect.options[citySelect.selectedIndex].text;
-  const rec = getRecommendation(selectedEmotion, citySelect.value);
-  modalText.textContent = `你選擇的情緒是 ${selectedEmotion}，縣市為 ${cityName}。\n推薦你：${rec}`;
-  modal.style.display = "flex";
-});
 
-// 點擊關閉按鈕或遮罩外關閉 Modal
-closeModalBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.style.display = "none";
+  if (!selectedEmotion || daySelect.value === "") {
+    alert("請先選擇一個情緒與縣市！");
+    return;
   }
+
+  alert(`你選擇的情緒是 ${selectedEmotion}，縣市為 ${daySelect.value}！`);
 });
