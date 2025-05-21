@@ -2102,6 +2102,7 @@ header {
 header.major h2 {
   margin-bottom: 20px;
   margin-top: 40px;
+  color: rgb(99, 10, 10);
 }
 
 header > p {
