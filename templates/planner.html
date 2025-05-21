@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>Left Sidebar - Helios by HTML5 UP</title>
+	<title>Traveler - 智慧旅行排程</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="../static/css/main.css" />
@@ -16,20 +16,13 @@
 	</noscript>
 </head>
 
+
 <body class="left-sidebar is-preload">
 	<div id="page-wrapper">
 
-		<!-- Header -->
-		<div id="header">
-
-			<!-- Inner -->
-			<div class="inner">
-				<header>
-					<h1 id="logo">客製你的專屬旅行</h1>
-				</header>
-			</div>
-
+		
 			<!-- Nav -->
+			<div id="header" style="display: none;"></div>
 			<nav id="nav">
 				
 					<ul>
@@ -37,17 +30,19 @@
 						<li><a href="./planner.html">智慧旅行排程</a></li>
 						<li><a href="./fate_dice.html">命運骰子</a></li>
 						<li><a href="./emotion.html">情緒導向推薦</a></li>
-					</ul>
 				
 			</nav>
-
-		</div>
+			
+		
 
 		<!-- Main -->
 		<div class="wrapper style1">
 			<div class="container">
 				<article id="main" class="special">
+					
+
 					<header class="major">
+						<h2>客製屬於你的旅行</h2>
 						<p>請選擇你的偏好，我們將為你安排完美的行程！</p>
 					</header>
 
@@ -87,7 +82,9 @@
 								<option value="200-500">200 - 500 元</option>
 								<option value="500-1000">500 - 1,000 元</option>
 								<option value="1000-3000">1,000 - 3,000 元</option>
-								<option value="3000-999999">3,000 元以上</option>
+								<option value="1000-3000">3,000 - 5,000 元</option>
+								<option value="1000-3000">5,000 - 8,000 元</option>
+								<option value="3000-999999">8,000 元以上</option>
 							</select>
 						</div>
 
@@ -96,13 +93,22 @@
 							<label for="preference" class="form-label">偏好類型</label>
 							<select id="preference" class="form-select" required>
 								<option value="">-- 請選擇 --</option>
-								<option value="food">美食</option>
+								<option value="food">美食之旅</option>
 								<option value="nature">自然風景</option>
 								<option value="culture">文化歷史</option>
 								<option value="adventure">冒險活動</option>
 								<option value="shopping">購物娛樂</option>
 								<option value="relax">休閒放鬆</option>
 							</select>
+						</div>
+						<!--日期-->
+						<div class="col-12 col-md-6">
+							<label for="startDate" class="form-label">出發日期</label>
+							<input type="date" id="startDate" name="startDate" class="form-control" required>
+						</div>
+						<div class="col-12 col-md-6">
+						    <label for="endDate" class="form-label">結束日期(至多7日)</label>
+  							<input type="date" id="endDate" name="endDate" class="form-control" required>
 						</div>
 
 						<!-- 開始排程按鈕 -->
@@ -154,14 +160,14 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.dropotron.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/jquery.dropotron.min.js"></script>
+    <script src="../static/js/jquery.scrolly.min.js"></script>
+    <script src="../static/js/jquery.scrollex.min.js"></script>
+    <script src="../static/js/browser.min.js"></script>
+    <script src="../static/js/breakpoints.min.js"></script>
+    <script src="../static/js/util.js"></script>
+    <script src="../static/js/main.js"></script>
 
 </body>
 
