@@ -35,7 +35,6 @@ def roll_dice(request):
         "image_url": d.image_url,
         "address": d.address,
         "category": d.get_category(),
-        "price_range": f"{d.min_price} ~ {d.max_price}"
     } for d in selected]
 
     return JsonResponse({
