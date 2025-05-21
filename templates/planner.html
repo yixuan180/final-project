@@ -1,165 +1,169 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <!--
 	Helios by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
+  <head>
+    <title>Traveler - 智慧旅行排程</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="../static/css/main.css" />
+    <noscript>
+      <link rel="stylesheet" href="../static/css/noscript.css" />
+    </noscript>
+  </head>
 
-<head>
-	<title>Traveler - 智慧旅行排程</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="../static/css/main.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-</head>
+  <body class="left-sidebar is-preload">
+    <div id="page-wrapper">
+      <!-- Nav -->
+      <div id="header" style="display: none"></div>
+      <nav id="nav">
+        <ul>
+          <li><a href="./index.html">首頁</a></li>
+          <li><a href="./planner.html">智慧旅行排程</a></li>
+          <li><a href="./fate_dice.html">命運骰子</a></li>
+          <li><a href="./emotion.html">情緒導向推薦</a></li>
+        </ul>
+      </nav>
 
+      <!-- Main -->
+      <div class="wrapper style1">
+        <div class="container">
+          <article id="main" class="special">
+            <header class="major">
+              <h2>客製屬於你的旅行</h2>
+              <p>請選擇你的偏好，我們將為你安排完美的行程！</p>
+            </header>
 
-<body class="left-sidebar is-preload">
-	<div id="page-wrapper">
+            <form id="customScheduleForm" class="row gtr-50">
+              <!-- 選擇縣市 -->
+              <div class="col-12">
+                <label for="city" class="form-label">選擇縣市</label>
+                <select id="city" class="form-select" required>
+                  <option value="">-- 請選擇 --</option>
+                  <option value="keelung">基隆</option>
+                  <option value="taipei">台北</option>
+                  <option value="new_taipei">新北</option>
+                  <option value="taoyuan">桃園</option>
+                  <option value="hsinchu_city">新竹</option>
+                  <option value="miaoli">苗栗</option>
+                  <option value="taichung">台中</option>
+                  <option value="changhua">彰化</option>
+                  <option value="nantou">南投</option>
+                  <option value="yunlin">雲林</option>
+                  <option value="chiayi_city">嘉義</option>
+                  <option value="tainan">台南</option>
+                  <option value="kaohsiung">高雄</option>
+                  <option value="pingtung">屏東</option>
+                  <option value="yilan">宜蘭</option>
+                  <option value="hualien">花蓮</option>
+                  <option value="taitung">台東</option>
+                </select>
+              </div>
 
-		
-			<!-- Nav -->
-			<div id="header" style="display: none;"></div>
-			<nav id="nav">
-				
-					<ul>
-						<li><a href="index.html">首頁</a></li>
-						<li><a href="./planner.html">智慧旅行排程</a></li>
-						<li><a href="./fate_dice.html">命運骰子</a></li>
-						<li><a href="./emotion.html">情緒導向推薦</a></li>
-				
-			</nav>
-			
-		
+              <!-- 預算範圍 -->
+              <div class="col-12">
+                <label for="budgetRange" class="form-label"
+                  >預算區間 (NT$)</label
+                >
+                <select id="budgetRange" class="form-select" required>
+                  <option value="">-- 請選擇 --</option>
+                  <option value="0-200">0 - 200 元</option>
+                  <option value="200-500">200 - 500 元</option>
+                  <option value="500-1000">500 - 1,000 元</option>
+                  <option value="1000-3000">1,000 - 3,000 元</option>
+                  <option value="1000-3000">3,000 - 5,000 元</option>
+                  <option value="1000-3000">5,000 - 8,000 元</option>
+                  <option value="3000-999999">8,000 元以上</option>
+                </select>
+              </div>
 
-		<!-- Main -->
-		<div class="wrapper style1">
-			<div class="container">
-				<article id="main" class="special">
-					
+              <!-- 偏好類型 -->
+              <div class="col-12">
+                <label for="preference" class="form-label">偏好類型</label>
+                <select id="preference" class="form-select" required>
+                  <option value="">-- 請選擇 --</option>
+                  <option value="food">美食之旅</option>
+                  <option value="nature">自然風景</option>
+                  <option value="culture">文化歷史</option>
+                  <option value="adventure">冒險活動</option>
+                  <option value="shopping">購物娛樂</option>
+                  <option value="relax">休閒放鬆</option>
+                </select>
+              </div>
+              <!--日期-->
+              <div class="col-12 col-md-6">
+                <label for="startDate" class="form-label">出發日期</label>
+                <input
+                  type="date"
+                  id="startDate"
+                  name="startDate"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="endDate" class="form-label"
+                  >結束日期(至多7日)</label
+                >
+                <input
+                  type="date"
+                  id="endDate"
+                  name="endDate"
+                  class="form-control"
+                  required
+                />
+              </div>
 
-					<header class="major">
-						<h2>客製屬於你的旅行</h2>
-						<p>請選擇你的偏好，我們將為你安排完美的行程！</p>
-					</header>
+              <!-- 開始排程按鈕 -->
+              <div class="col-12 text-center mt-4">
+                <button type="submit" class="button primary">開始排程</button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </div>
 
-					<form id="customScheduleForm" class="row gtr-50">
+      <!-- Footer -->
+      <div id="footer">
+        <div class="container">
+          <!-- Contact -->
+          <section class="contact">
+            <header>
+              <h3>聯絡我們</h3>
+            </header>
+            <p>若有任何問題，非常歡迎您透過以下管道聯繫我們</p>
+            <ul class="icons">
+              <li>
+                <a href="#" class="icon brands fa-facebook-f"
+                  ><span class="label">Facebook</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon brands fa-instagram"
+                  ><span class="label">Instagram</span></a
+                >
+              </li>
+            </ul>
+          </section>
 
-						<!-- 選擇縣市 -->
-						<div class="col-12">
-							<label for="city" class="form-label">選擇縣市</label>
-							<select id="city" class="form-select" required>
-								<option value="">-- 請選擇 --</option>
-								<option value="keelung">基隆</option>
-								<option value="taipei">台北</option>
-								<option value="new_taipei">新北</option>
-								<option value="taoyuan">桃園</option>
-								<option value="hsinchu_city">新竹</option>
-								<option value="miaoli">苗栗</option>
-								<option value="taichung">台中</option>
-								<option value="changhua">彰化</option>
-								<option value="nantou">南投</option>
-								<option value="yunlin">雲林</option>
-								<option value="chiayi_city">嘉義</option>
-								<option value="tainan">台南</option>
-								<option value="kaohsiung">高雄</option>
-								<option value="pingtung">屏東</option>
-								<option value="yilan">宜蘭</option>
-								<option value="hualien">花蓮</option>
-								<option value="taitung">台東</option>
-							</select>
-						</div>
+          <!-- Copyright -->
+          <div class="copyright">
+            <ul class="menu">
+              <li>&copy; Untitled. All rights reserved.</li>
+              <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
-						<!-- 預算範圍 -->
-						<div class="col-12">
-							<label for="budgetRange" class="form-label">預算區間 (NT$)</label>
-							<select id="budgetRange"  class="form-select"  required>
-								<option value="">-- 請選擇 --</option>
-								<option value="0-200">0 - 200 元</option>
-								<option value="200-500">200 - 500 元</option>
-								<option value="500-1000">500 - 1,000 元</option>
-								<option value="1000-3000">1,000 - 3,000 元</option>
-								<option value="1000-3000">3,000 - 5,000 元</option>
-								<option value="1000-3000">5,000 - 8,000 元</option>
-								<option value="3000-999999">8,000 元以上</option>
-							</select>
-						</div>
-
-						<!-- 偏好類型 -->
-						<div class="col-12">
-							<label for="preference" class="form-label">偏好類型</label>
-							<select id="preference" class="form-select" required>
-								<option value="">-- 請選擇 --</option>
-								<option value="food">美食之旅</option>
-								<option value="nature">自然風景</option>
-								<option value="culture">文化歷史</option>
-								<option value="adventure">冒險活動</option>
-								<option value="shopping">購物娛樂</option>
-								<option value="relax">休閒放鬆</option>
-							</select>
-						</div>
-						<!--日期-->
-						<div class="col-12 col-md-6">
-							<label for="startDate" class="form-label">出發日期</label>
-							<input type="date" id="startDate" name="startDate" class="form-control" required>
-						</div>
-						<div class="col-12 col-md-6">
-						    <label for="endDate" class="form-label">結束日期(至多7日)</label>
-  							<input type="date" id="endDate" name="endDate" class="form-control" required>
-						</div>
-
-						<!-- 開始排程按鈕 -->
-						<div class="col-12 text-center mt-4">
-							<button type="submit" class="button primary">開始排程</button>
-						</div>
-
-					</form>
-				</article>
-			</div>
-		</div>
-
-
-
-
-		<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-
-
-					<!-- Contact -->
-					<section class="contact">
-						<header>
-							<h3>聯絡我們</h3>
-						</header>
-						<p> 若有任何問題，非常歡迎您透過以下管道聯繫我們</p>
-						<ul class="icons">
-
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a>
-							</li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a>
-							</li>
-
-						</ul>
-					</section>
-
-					<!-- Copyright -->
-					<div class="copyright">
-						<ul class="menu">
-							<li>&copy; Untitled. All rights reserved.</li>
-							<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- Scripts -->
+    <!-- Scripts -->
     <script src="../static/js/jquery.dropotron.min.js"></script>
     <script src="../static/js/jquery.scrolly.min.js"></script>
     <script src="../static/js/jquery.scrollex.min.js"></script>
@@ -167,7 +171,5 @@
     <script src="../static/js/breakpoints.min.js"></script>
     <script src="../static/js/util.js"></script>
     <script src="../static/js/main.js"></script>
-
-</body>
-
+  </body>
 </html>
