@@ -5,7 +5,7 @@ import json
 
 class Travel_Themes(models.Model):
     name = models.CharField(max_length=100, verbose_name="主題名稱")
-    description = models.TextField(verbose_name="主題描述")
+    description = models.TextField(verbose_name="主題描述") #AI讀的時候可能還是會用到，所以留著
 
     def __str__(self):
         return self.name
@@ -23,8 +23,8 @@ class Destination(models.Model):
     category = models.TextField(verbose_name="類別")
     suitable_emotions = models.ManyToManyField(Emotion_Type, related_name='suitable_destinations', verbose_name="適合情緒類型", blank=True)
     opening_hours = models.TextField(verbose_name="營業時間")
-    min_price = models.FloatField(verbose_name="最低費用")
-    max_price = models.FloatField(verbose_name="最高費用") 
+    min_price = models.FloatField(verbose_name="最低費用", blank=True, null=True)
+    max_price = models.FloatField(verbose_name="最高費用", blank=True, null=True)
     contact_info = models.TextField(verbose_name="景點聯絡資訊")
 
     def __str__(self):
