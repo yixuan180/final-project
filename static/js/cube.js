@@ -30,7 +30,6 @@ document.querySelector(".startButton").addEventListener("click", () => {
   const baseY = rotation.y;
   const spinX = 1080;
   const spinY = 1080;
-
   cube.style.transition = "none";
   cube.style.transform = `rotateX(0deg) rotateY(0deg)`;
 
@@ -39,7 +38,7 @@ document.querySelector(".startButton").addEventListener("click", () => {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      cube.style.transition = "transform 1.5s ease-in-out";
+      cube.style.transition = "transform 2s ease-in-out";
       cube.style.transform = `rotateX(${spinX + baseX}deg) rotateY(${
         spinY + baseY
       }deg)`;
@@ -50,5 +49,5 @@ document.querySelector(".startButton").addEventListener("click", () => {
     resultLabel.textContent = result;
     void resultLabel.offsetWidth;
     resultLabel.classList.add("show");
-  }, 1500);
+  }, 2100);
 });

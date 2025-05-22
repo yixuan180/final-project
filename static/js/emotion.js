@@ -1,26 +1,32 @@
-const emoItems = document.querySelectorAll(".firstemo");
+const emotionButtons = document.querySelectorAll(".firstemo");
 const daySelect = document.getElementById("datechosen");
-const submitBtn = document.querySelector(".button.primary");
+const submitBtn = document.getElementById("submitBtn");
 
 let selectedEmotion = null;
 
+// 點選情緒圖片
 emotionButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    // 清除所有選擇
+  btn.addEventListener("click", (e) => {
+    e.preventDefault(); // 阻止 <a> 跳轉
+
+    // 移除所有選擇
     emotionButtons.forEach((b) => b.classList.remove("selected"));
-    // 設定當前選擇
+
+    // 標示選取
     btn.classList.add("selected");
+
     selectedEmotion = btn.getAttribute("data-index");
+
     checkFormValid();
   });
 });
 
-// 監聽日期下拉選單變更
+// 監聽下拉選單
 daySelect.addEventListener("change", () => {
   checkFormValid();
 });
 
-// 檢查是否兩個都選擇了
+// 檢查表單狀態
 function checkFormValid() {
   if (selectedEmotion && daySelect.value !== "") {
     submitBtn.disabled = false;
@@ -29,12 +35,17 @@ function checkFormValid() {
   }
 }
 
-// 初始預設：按鈕不可點
+// 初始禁用按鈕
 submitBtn.disabled = true;
 
-// 額外：點擊送出按鈕
+// 按鈕點擊事件
 submitBtn.addEventListener("click", (e) => {
-  e.preventDefault(); // 防止表單預設行為
-  alert(`你選擇的情緒是 ${selectedEmotion}，天數為 ${daySelect.value} 天！`);
-  // 可以在這裡加上跳轉或 AJAX 請求
+  e.preventDefault();
+
+  if (!selectedEmotion || daySelect.value === "") {
+    alert("請先選擇一個情緒與縣市！");
+    return;
+  }
+
+  alert(`你選擇的情緒是 ${selectedEmotion}，縣市為 ${daySelect.value}！`);
 });

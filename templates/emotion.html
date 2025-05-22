@@ -6,13 +6,13 @@
 -->
 <html>
   <head>
-    <title>No Sidebar - Helios by HTML5 UP</title>
+    <title>Traveler - 情緒導向推薦</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
-    <link rel="stylesheet" href="static/css/main.css" />
+    <link rel="stylesheet" href="../static/css/main.css" />
     <noscript
       ><link rel="stylesheet" href="static/css/noscript.css"
     /></noscript>
@@ -22,51 +22,45 @@
     />
   </head>
   <body class="no-sidebar is-preload">
-    <div id="page-wrapper">
-      <!-- Header -->
-      <div id="header">
-        <!-- Inner -->
-        <div class="inner">
-          <header>
-            <h1 id="logo">情緒導向推薦</h1>
-          </header>
-        </div>
-
-        <!-- Nav -->
-        <nav id="nav">
-          <ul>
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="planner.html">智慧旅行排程</a></li>
-            <li><a href="fate_dice.html">命運骰子</a></li>
-            <li><a href="emotion.html">情緒導向推薦</a></li>
-          </ul>
-        </nav>
-      </div>
+    <div>
+      <!-- Nav -->
+      <nav id="nav">
+        <ul>
+          <li><a href="./index.html">首頁</a></li>
+          <li><a href="./planner.html">智慧旅行排程</a></li>
+          <li><a href="./fate_dice.html">命運骰子</a></li>
+          <li><a href="./emotion.html">情緒導向推薦</a></li>
+        </ul>
+      </nav>
 
       <!-- Main -->
       <div class="wrapper style1">
         <div class="container">
           <article id="main" class="special">
+            <header class="major">
+              <h2>情緒導向推薦</h2>
+            </header>
+            <br />
             <header>
               <h2><i class="fa-solid fa-arrow-right"></i>&nbsp;Step 1</h2>
               <br />
               <h3>
                 請選擇您目前的心情&nbsp;<i class="fa-solid fa-face-smile"></i>
               </h3>
+              <br />
             </header>
             <div class="emotion-container">
               <a class="firstemo" data-index="1"
-                ><img src="./images/S__80920687_0.jpg" alt=""
+                ><img src="../static/images/JOY.jpg" alt=""
               /></a>
-
               <a class="firstemo" data-index="2"
-                ><img src="./images/S__80920688_0.jpg" alt=""
+                ><img src="../static/images/ENNUI.jpg" alt=""
               /></a>
               <a class="firstemo" data-index="3"
-                ><img src="./images/S__80920689_0.jpg" alt=""
+                ><img src="../static/images/ANXIETY.jpg" alt=""
               /></a>
               <a class="firstemo" data-index="4"
-                ><img src="./images/S__80920690_0.jpg" alt=""
+                ><img src="../static/images/SADNESS.jpg" alt=""
               /></a>
             </div>
             <hr />
@@ -76,11 +70,12 @@
                 <br />
               </div>
               <form id="customScheduleForm" class="row gtr-50">
+                <p id="formError" style="color: red"></p>
                 <div class="col-12">
-                  <label for="datechosen" class="form-label"
+                  <label for="city" class="form-label"
                     >選擇縣市 &nbsp;<i class="fa-solid fa-city"></i
                   ></label>
-                  <select id="datechosen" class="form-select" required>
+                  <select id="city" class="form-select" required>
                     <option value="">-- 請選擇 --</option>
                     <option value="keelung">基隆</option>
                     <option value="taipei">台北</option>
@@ -101,11 +96,12 @@
                     <option value="taitung">台東</option>
                   </select>
                 </div>
+                <div class="col-12 text-center mt-4">
+                  <button id="openModalBtn" class="button primary">
+                    開始推薦
+                  </button>
+                </div>
               </form>
-            </div>
-            <br />
-            <div class="col-12 text-center mt-4">
-              <button type="submit" class="button primary">開始推薦</button>
             </div>
           </article>
         </div>
@@ -146,14 +142,14 @@
     </div>
 
     <!-- Scripts -->
-    <script src="static/js/jquery.min.js"></script>
-    <script src="static/js/jquery.dropotron.min.js"></script>
-    <script src="static/js/jquery.scrolly.min.js"></script>
-    <script src="static/js/jquery.scrollex.min.js"></script>
-    <script src="static/js/browser.min.js"></script>
-    <script src="static/js/breakpoints.min.js"></script>
-    <script src="static/js/util.js"></script>
-    <script src="static/js/main.js"></script>
-    <script src="static/js/emotion.js"></script>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/jquery.dropotron.min.js"></script>
+    <script src="../static/js/jquery.scrolly.min.js"></script>
+    <script src="../static/js/jquery.scrollex.min.js"></script>
+    <script src="../static/js/browser.min.js"></script>
+    <script src="../static/js/breakpoints.min.js"></script>
+    <script src="../static/js/util.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/emotion.js"></script>
   </body>
 </html>
