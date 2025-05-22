@@ -3,9 +3,17 @@ import re
 import google.generativeai as genai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.shortcuts import render
+
+
+
 
 # 設定 Gemini API 金鑰
 genai.configure(api_key="AIzaSyAGsPf8khZvCh6g_4PIhQ1ltUJKV-11lu0")
+
+def planner_view(request):
+    return render(request, 'planner/planner.html')
 
 @csrf_exempt
 def generate_itinerary(request):
@@ -27,8 +35,10 @@ def generate_itinerary(request):
     # 過濾符合主題與地區的景點
     destinations = list(Destination.objects.filter(
         address__icontains=region,
-        theme__icontains=theme
+        theme__name__icontains=theme
     ))
+    print(destinations)  # 檢查是否真的查詢到了景點
+
 
     prompt = build_prompt(destinations, region, start_date, end_date, budget, theme)
 
@@ -36,9 +46,11 @@ def generate_itinerary(request):
         model = genai.GenerativeModel(model_name="gemini-1.5-flash")
         response = model.generate_content(prompt)
 
+        print(response.text)  # 確認 Gemini 回應是否正確
+
         itinerary_text = response.text.strip()
 
-        parsed_itinerary = parse_itinerary_to_json(itinerary_text)
+        parsed_itinerary = itinerary_text
 
         return JsonResponse({
             "success": True,

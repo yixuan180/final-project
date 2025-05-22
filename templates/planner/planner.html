@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE HTML>
 <!--
 	Helios by HTML5 UP
@@ -10,9 +11,9 @@
 	<title>Traveler - 智慧旅行排程</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="{% static 'css/main.css' %}" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<link rel="stylesheet" href="{% static 'css/noscript.css' %}" />
 	</noscript>
 </head>
 
@@ -27,9 +28,9 @@
 				
 					<ul>
 						<li><a href="index.html">首頁</a></li>
-						<li><a href="left-sidebar.html">智慧旅行排程</a></li>
-						<li><a href="right-sidebar.html">命運骰子</a></li>
-						<li><a href="no-sidebar.html">情緒導向推薦</a></li>
+						<li><a href="planner.html">智慧旅行排程</a></li>
+						<li><a href="fate_dice.html">命運骰子</a></li>
+						<li><a href="emotion.html">情緒導向推薦</a></li>
 					</ul>
 				
 			</nav>
@@ -48,76 +49,76 @@
 					</header>
 
 					<form id="customScheduleForm" class="row gtr-50">
-
 						<!-- 選擇縣市 -->
 						<div class="col-12">
 							<label for="city" class="form-label">選擇縣市</label>
-							<select id="city" class="form-select" required>
+							<select id="city" name="region" class="form-select" required>
 								<option value="">-- 請選擇 --</option>
-								<option value="keelung">基隆</option>
-								<option value="taipei">台北</option>
-								<option value="new_taipei">新北</option>
-								<option value="taoyuan">桃園</option>
-								<option value="hsinchu_city">新竹</option>
-								<option value="miaoli">苗栗</option>
-								<option value="taichung">台中</option>
-								<option value="changhua">彰化</option>
-								<option value="nantou">南投</option>
-								<option value="yunlin">雲林</option>
-								<option value="chiayi_city">嘉義</option>
-								<option value="tainan">台南</option>
-								<option value="kaohsiung">高雄</option>
-								<option value="pingtung">屏東</option>
-								<option value="yilan">宜蘭</option>
-								<option value="hualien">花蓮</option>
-								<option value="taitung">台東</option>
+								<option value="基隆">基隆</option>
+								<option value="台北">台北</option>
+								<option value="新北">新北</option>
+								<option value="桃園">桃園</option>
+								<option value="新竹">新竹</option>
+								<option value="苗栗">苗栗</option>
+								<option value="台中">台中</option>
+								<option value="彰化">彰化</option>
+								<option value="南投">南投</option>
+								<option value="雲林">雲林</option>
+								<option value="嘉義">嘉義</option>
+								<option value="台南">台南</option>
+								<option value="高雄">高雄</option>
+								<option value="屏東">屏東</option>
+								<option value="宜蘭">宜蘭</option>
+								<option value="花蓮">花蓮</option>
+								<option value="台東">台東</option>
 							</select>
 						</div>
 
-						<!-- 預算範圍 -->
+						<!-- 預算區間 -->
 						<div class="col-12">
 							<label for="budgetRange" class="form-label">預算區間 (NT$)</label>
-							<select id="budgetRange"  class="form-select"  required>
+							<select id="budgetRange" name="budget" class="form-select" required>
 								<option value="">-- 請選擇 --</option>
-								<option value="0-200">0 - 200 元</option>
-								<option value="200-500">200 - 500 元</option>
-								<option value="500-1000">500 - 1,000 元</option>
-								<option value="1000-3000">1,000 - 3,000 元</option>
-								<option value="1000-3000">3,000 - 5,000 元</option>
-								<option value="1000-3000">5,000 - 8,000 元</option>
-								<option value="3000-999999">8,000 元以上</option>
+								<option value="200">0 - 200 元</option>
+								<option value="500">200 - 500 元</option>
+								<option value="1000">500 - 1,000 元</option>
+								<option value="3000">1,000 - 3,000 元</option>
+								<option value="5000">3,000 - 5,000 元</option>
+								<option value="8000">5,000 - 8,000 元</option>
+								<option value="10000">8,000 元以上</option>
 							</select>
 						</div>
 
 						<!-- 偏好類型 -->
 						<div class="col-12">
 							<label for="preference" class="form-label">偏好類型</label>
-							<select id="preference" class="form-select" required>
+							<select id="preference" name="theme" class="form-select" required>
 								<option value="">-- 請選擇 --</option>
-								<option value="food">美食之旅</option>
-								<option value="nature">自然風景</option>
-								<option value="culture">文化歷史</option>
-								<option value="adventure">冒險活動</option>
-								<option value="shopping">購物娛樂</option>
-								<option value="relax">休閒放鬆</option>
+								<option value="美食之旅">美食之旅</option>
+								<option value="自然風景">自然風景</option>
+								<option value="文化歷史">文化歷史</option>
+								<option value="冒險活動">冒險活動</option>
+								<option value="購物娛樂">購物娛樂</option>
+								<option value="休閒放鬆">休閒放鬆</option>
 							</select>
 						</div>
-						<!--日期-->
+
+						<!-- 日期 -->
 						<div class="col-12 col-md-6">
 							<label for="startDate" class="form-label">出發日期</label>
-							<input type="date" id="startDate" name="startDate" class="form-control" required>
+							<input type="date" id="startDate" name="start_date" class="form-control" required>
 						</div>
 						<div class="col-12 col-md-6">
-						    <label for="endDate" class="form-label">結束日期(至多7日)</label>
-  							<input type="date" id="endDate" name="endDate" class="form-control" required>
+							<label for="endDate" class="form-label">結束日期(至多7日)</label>
+							<input type="date" id="endDate" name="end_date" class="form-control" required>
 						</div>
 
 						<!-- 開始排程按鈕 -->
 						<div class="col-12 text-center mt-4">
 							<button type="submit" class="button primary">開始排程</button>
 						</div>
-
 					</form>
+
 				</article>
 			</div>
 		</div>
@@ -161,14 +162,43 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.dropotron.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="../../static/js/jquery.min.js"></script>
+	<script src="../../static/js/jquery.dropotron.min.js"></script>
+	<script src="../../static/js/jquery.scrolly.min.js"></script>
+	<script src="../../static/js/jquery.scrollex.min.js"></script>
+	<script src="../../static/js/browser.min.js"></script>
+	<script src="../../static/js/breakpoints.min.js"></script>
+	<script src="../../static/js/util.js"></script>
+	<script src="../../static/js/main.js"></script>
+	<!-- 在 HTML 最底部（body 結束前）加上 script -->
+	<script>
+	document.getElementById("customScheduleForm").addEventListener("submit", function(event) {
+		event.preventDefault(); // 防止表單提交後刷新頁面
+
+		//const formData = new FormData(this);
+
+		const testData = new FormData();
+		testData.append('region', '台北');
+		testData.append('budget', 6000);
+		testData.append('theme', '美食之旅');
+		testData.append('start_date', '2025-06-01');
+		testData.append('end_date', '2025-06-04');
+
+		fetch("http://127.0.0.1:8000/planner/generate_itinerary/", {
+			method: "POST",
+			body: testData
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log("API 回傳資料:", data);
+		})
+		.catch(error => {
+			console.error("API 呼叫錯誤:", error);
+		});
+	});
+	</script>
+</body>
+</html>
 
 </body>
 
