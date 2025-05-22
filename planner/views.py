@@ -50,7 +50,7 @@ def generate_itinerary(request):
 
         itinerary_text = response.text.strip()
 
-        parsed_itinerary = itinerary_text
+        parsed_itinerary = parse_itinerary_to_json(itinerary_text)
 
         return JsonResponse({
             "success": True,
