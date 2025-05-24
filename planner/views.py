@@ -1,4 +1,5 @@
 from planner.models import Destination
+import json
 import re
 import google.generativeai as genai
 from django.http import JsonResponse
@@ -15,25 +16,40 @@ def generate_itinerary(request):
             "message": "只接受 POST 請求",
             "data": None
         }, status=405)
+    
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({
+            "success": False,
+            "message": "JSON 格式錯誤",
+            "data": None
+        }, status=400)
 
     # 這裡要串前端的接收用戶的輸入
-    region = request.POST.get('region', '台北')
-    # 這裡預算前端給的是區間
-    budget = float(request.POST.get('budget', 6000))
-    theme = request.POST.get('theme', '美食之旅')
-    start_date = request.POST.get('start_date', '2025-06-01')
-    end_date = request.POST.get('end_date', '2025-06-04')
+    region = data.get('region', '台中')
+    budget = float(data.get('budget', 6000))
+    theme = data.get('theme', '美食之旅')
+    start_date = data.get('start_date', '2025-06-01')
+    end_date = data.get('end_date', '2025-06-04')
+
+
 
     # 過濾符合主題與地區的景點
     destinations = list(Destination.objects.filter(
         address__icontains=region,
-        theme__icontains=theme
+        theme__name__icontains=theme
     ))
+
+    print("📍找到景點數量：", len(destinations))
+    for d in destinations:
+        print("🔹", d.name, "-", d.address, "-", d.theme.name)
+
 
     prompt = build_prompt(destinations, region, start_date, end_date, budget, theme)
 
     try:
-        model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+        model = genai.GenerativeModel(model_name="gemini-2.0-flash")
         response = model.generate_content(prompt)
 
         itinerary_text = response.text.strip()

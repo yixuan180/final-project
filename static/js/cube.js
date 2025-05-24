@@ -51,3 +51,24 @@ document.querySelector(".startButton").addEventListener("click", () => {
     resultLabel.classList.add("show");
   }, 2100);
 });
+
+document.querySelector(".startRec button").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const citySelect = document.getElementById("datechosen");
+  const resultLabel = document.getElementById("resultLabel");
+
+  const selectedCity = citySelect.value;
+  const selectedTheme = resultLabel.textContent.trim();
+
+  if (!selectedCity || !selectedTheme) {
+    alert("請先選擇縣市並完成擲骰子！");
+    return;
+  }
+
+  // 轉址用 queryString 傳遞資料
+  const queryString = `?city=${encodeURIComponent(
+    selectedCity
+  )}&theme=${encodeURIComponent(selectedTheme)}`;
+  window.open(`./result.html${queryString}`, "_blank");
+});

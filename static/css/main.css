@@ -26,7 +26,7 @@
 }
 
 #Tutor {
-  background-image: url("../../images/messageImage_1746605294770_0.jpg");
+  background-image: url("../images/messageImage_1746605294770_0.jpg");
   font-size: 25px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2102,6 +2102,7 @@ header {
 header.major h2 {
   margin-bottom: 20px;
   margin-top: 40px;
+  color: rgb(99, 10, 10);
 }
 
 header > p {
@@ -2519,7 +2520,7 @@ header .icon.circled {
 /* Wrapper */
 
 .wrapper {
-  background-image: url("../../images/messageImage_1746605294770_0.jpg");
+  background-image: url("../images/messageImage_1746605294770_0.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -2534,7 +2535,7 @@ header .icon.circled {
 
 #header {
   position: relative;
-  background-image: url("../../images/bg.jpg");
+  background-image: url("../images/bg.jpg");
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
