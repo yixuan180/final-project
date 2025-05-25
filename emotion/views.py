@@ -8,7 +8,7 @@ def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需
     return render(request, 'emotion.html')
 
 def result_view(request): # **新增這個函式**，用於渲染 result.html
-    return render(request, 'result.html')
+    return render(request, 'emotionResult.html')
 
 @csrf_exempt
 def generate_by_emotion(request):

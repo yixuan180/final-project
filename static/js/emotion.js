@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const emotionName = emotionMap[selectedEmotion];
     const queryString = `?emotion=${emotionName}&city=${citySelect.value}`;
-    window.open(`./result.html${queryString}`, "_blank");
+    window.open(`./emotionResult.html${queryString}`, "_blank");
   });
 
   // 初始檢查一次表單
