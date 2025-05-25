@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
   <head>
     <title>Traveler - 智慧旅行排程</title>
@@ -20,7 +15,6 @@
 
   <body class="left-sidebar is-preload">
     <div id="page-wrapper">
-      <!-- Nav -->
       <div id="header" style="display: none"></div>
       <nav id="nav">
         <ul>
@@ -31,7 +25,6 @@
         </ul>
       </nav>
 
-      <!-- Main -->
       <div class="wrapper style1">
         <div class="container">
           <article id="main" class="special">
@@ -40,13 +33,7 @@
               <p>請選擇你的偏好，我們將為你安排完美的行程！</p>
             </header>
 
-            <form
-              id="customScheduleForm"
-              class="row gtr-50"
-              action="./result.html"
-              method="get"
-            >
-              <!-- 選擇縣市 -->
+            <form id="customScheduleForm" class="row gtr-50">
               <div class="col-12">
                 <label for="city" class="form-label">選擇縣市</label>
                 <select id="city" class="form-select" required>
@@ -57,21 +44,20 @@
                   <option value="taoyuan">桃園</option>
                   <option value="hsinchu_city">新竹</option>
                   <option value="miaoli">苗栗</option>
-                  <option value="taichung">台中</option>
+                  <option value="taichung">臺中</option>
                   <option value="changhua">彰化</option>
                   <option value="nantou">南投</option>
                   <option value="yunlin">雲林</option>
                   <option value="chiayi_city">嘉義</option>
-                  <option value="tainan">台南</option>
+                  <option value="tainan">臺南</option>
                   <option value="kaohsiung">高雄</option>
                   <option value="pingtung">屏東</option>
                   <option value="yilan">宜蘭</option>
                   <option value="hualien">花蓮</option>
-                  <option value="taitung">台東</option>
+                  <option value="taitung">臺東</option>
                 </select>
               </div>
 
-              <!-- 預算範圍 -->
               <div class="col-12">
                 <label for="budgetRange" class="form-label"
                   >預算區間 (NT$)</label
@@ -82,13 +68,12 @@
                   <option value="200-500">200 - 500 元</option>
                   <option value="500-1000">500 - 1,000 元</option>
                   <option value="1000-3000">1,000 - 3,000 元</option>
-                  <option value="1000-3000">3,000 - 5,000 元</option>
-                  <option value="1000-3000">5,000 - 8,000 元</option>
-                  <option value="3000-999999">8,000 元以上</option>
+                  <option value="3000-5000">3,000 - 5,000 元</option>
+                  <option value="5000-8000">5,000 - 8,000 元</option>
+                  <option value="8000-999999">8,000 元以上</option>
                 </select>
               </div>
 
-              <!-- 偏好類型 -->
               <div class="col-12">
                 <label for="preference" class="form-label">偏好類型</label>
                 <select id="preference" class="form-select" required>
@@ -101,7 +86,6 @@
                   <option value="relax">休閒放鬆</option>
                 </select>
               </div>
-              <!--日期-->
               <div class="col-12 col-md-6">
                 <label for="startDate" class="form-label">出發日期</label>
                 <input
@@ -125,23 +109,16 @@
                 />
               </div>
 
-              <!-- 開始排程按鈕 -->
               <div class="col-12 text-center mt-4">
                 <button type="submit" class="button primary">開始排程</button>
               </div>
             </form>
           </article>
-		  <div id="itineraryOutput" style="margin-top: 4em; padding: 2em; background: #f9f9f9; border-radius: 8px;">
-              <h3 style="text-align: center; color: #555;">您的專屬行程將在此顯示</h3>
-              <p style="text-align: center; color: #777;">填寫表單並點擊「開始排程」</p>
-          </div>
         </div>
       </div>
 
-      <!-- Footer -->
       <div id="footer">
         <div class="container">
-          <!-- Contact -->
           <section class="contact">
             <header>
               <h3>聯絡我們</h3>
@@ -161,7 +138,6 @@
             </ul>
           </section>
 
-          <!-- Copyright -->
           <div class="copyright">
             <ul class="menu">
               <li>&copy; Untitled. All rights reserved.</li>
@@ -172,7 +148,6 @@
       </div>
     </div>
 
-    <!-- Scripts -->
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/jquery.dropotron.min.js"></script>
     <script src="../static/js/jquery.scrolly.min.js"></script>
@@ -181,97 +156,48 @@
     <script src="../static/js/breakpoints.min.js"></script>
     <script src="../static/js/util.js"></script>
     <script src="../static/js/main.js"></script>
-	<script>
-    document.getElementById("customScheduleForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // 防止表單提交後刷新頁面
+    <script>
+      document
+        .getElementById("customScheduleForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // 阻止表單預設提交行為
 
-        // 獲取使用者輸入的值
-        // 注意這裡使用的 ID 需要和你的 HTML 表單元素 ID 一致
-        const city = document.getElementById('city').value;
-        const budgetRange = document.getElementById('budgetRange').value;
-        const preference = document.getElementById('preference').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
+          // 獲取使用者輸入的值
+          const city = document.getElementById("city").value;
+          const budgetRange = document.getElementById("budgetRange").value;
+          const preference = document.getElementById("preference").value;
+          const startDate = document.getElementById("startDate").value;
+          const endDate = document.getElementById("endDate").value;
 
-        // **處理預算範圍：**
-        // 將 "500-1000" 這樣的字串轉換為一個合理的數字（例如區間的中點或上限）
-        // 為了簡單起見，我們先取範圍的上限作為預算。
-        let budget;
-        if (budgetRange.includes('-')) {
-            const parts = budgetRange.split('-');
-            if (parts.length === 2) {
-                budget = parseFloat(parts[1]); // 取上限
-            } else if (parts.length === 1 && budgetRange.includes('以上')) { // 處理 "8000 元以上"
-                budget = parseFloat(parts[0].replace(' 元以上', '')); // 取下限
-            }
-        } else {
-            budget = 6000; // 如果解析失敗，給一個預設值
-        }
-        
-        // 構建要發送到後端的數據對象
-        const requestData = {
-            region: city,           // 後端預期 'region'
-            budget: budget,         // 後端預期 'budget'
-            theme: preference,      // 後端預期 'theme'
-            start_date: startDate,  // 後端預期 'start_date'
-            end_date: endDate       // 後端預期 'end_date'
-        };
+          // 簡單處理預算範圍，取上限或預設值
+          let budget;
+          if (budgetRange.includes("-")) {
+            const parts = budgetRange.split("-");
+            budget = parseFloat(parts[1]); 
+          } else if (budgetRange.includes("以上")) {
+            budget = parseFloat(budgetRange.replace("8000 元以上", "8000")); 
+          } else {
+            budget = 6000;
+          }
 
-        fetch("http://127.0.0.1:8000/planner/generate_itinerary/", { // 請確認你的後端 API URL
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData) // 將組裝好的數據轉換為 JSON 字串
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(errorData.message || 'API 請求失敗');
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("API 回傳資料:", data);
-            if (data.success) {
-                displayItinerary(data.data); // 呼叫函數顯示行程
-            } else {
-                alert('行程生成失敗: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("API 呼叫錯誤:", error);
-            alert("發生錯誤: " + error.message);
+          // 構建要發送到後端的數據對象
+          const requestData = {
+            region: city, 
+            budget: budget, 
+            theme: preference,
+            start_date: startDate, 
+            end_date: endDate,
+          };
+
+          // 將請求資料儲存到 sessionStorage
+          sessionStorage.setItem(
+            "plannerRequestData",
+            JSON.stringify(requestData)
+          );
+
+          // 導向到 loading.html
+          window.location.href = "./loading.html";
         });
-    });
-
-    // 新增一個函數來顯示行程數據
-    function displayItinerary(itineraryData) {
-        const itineraryOutputDiv = document.getElementById('itineraryOutput'); // 假設你有一個 div 來顯示行程
-        if (!itineraryOutputDiv) {
-            console.error('未能找到顯示行程的元素 (id="itineraryOutput")');
-            return;
-        }
-
-        itineraryOutputDiv.innerHTML = '<h3>為您客製的旅行行程：</h3>'; // 清空並添加標題
-
-        if (itineraryData && itineraryData.length > 0) {
-            itineraryData.forEach(day => {
-                const dayHtml = `
-                    <div class="itinerary-day">
-                        <h4>${day.day}</h4>
-                        <p><strong>早上：</strong> ${day.morning || '無安排'}</p>
-                        <p><strong>下午：</strong> ${day.afternoon || '無安排'}</p>
-                        <p><strong>晚上：</strong> ${day.evening || '無安排'}</p>
-                    </div>
-                `;
-                itineraryOutputDiv.innerHTML += dayHtml;
-            });
-        } else {
-            itineraryOutputDiv.innerHTML += '<p>未能生成行程，請嘗試其他條件。</p>';
-        }
-    }
     </script>
   </body>
 </html>

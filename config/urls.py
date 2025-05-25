@@ -25,7 +25,7 @@ def test_view(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('emotion/', include('emotion.urls')),  
-    path('fate-dice/', include('fate_dice.urls')),  
+    path('fate_dice/', include('fate_dice.urls')),  
     path('planner/', include('planner.urls')),  
 ]
 

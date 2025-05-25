@@ -61,17 +61,17 @@
                         <option value="taoyuan">桃園</option>
                         <option value="hsinchu_city">新竹</option>
                         <option value="miaoli">苗栗</option>
-                        <option value="taichung">台中</option>
+                        <option value="taichung">臺中</option>
                         <option value="changhua">彰化</option>
                         <option value="nantou">南投</option>
                         <option value="yunlin">雲林</option>
                         <option value="chiayi_city">嘉義</option>
-                        <option value="tainan">台南</option>
+                        <option value="tainan">臺南</option>
                         <option value="kaohsiung">高雄</option>
                         <option value="pingtung">屏東</option>
                         <option value="yilan">宜蘭</option>
                         <option value="hualien">花蓮</option>
-                        <option value="taitung">台東</option>
+                        <option value="taitung">臺東</option>
                       </select>
                     </div>
                   </form>
@@ -223,5 +223,94 @@
     <script src="../static/js/breakpoints.min.js"></script>
     <script src="../static/js/util.js"></script>
     <script src="../static/js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const startRecButton = document.querySelector(".startRec button"); // 「開始推薦」按鈕
+        const citySelect = document.getElementById("datechosen"); // 縣市選擇下拉選單
+        const resultLabel = document.getElementById("resultLabel"); // 顯示骰子結果的區域
+
+        // 監聽「開始推薦」按鈕點擊事件
+        if (startRecButton && citySelect && resultLabel) {
+          startRecButton.addEventListener("click", function (event) {
+            event.preventDefault(); // 阻止表單預設提交行為
+
+            const selectedCity = citySelect.value; // 獲取選擇的縣市
+            const selectedTheme = resultLabel.textContent.trim(); // 從 resultLabel 獲取骰子擲出的主題
+
+            // 前端驗證：檢查使用者是否已選擇縣市且已擲出骰子結果
+            if (!selectedCity || selectedCity === "") {
+              alert("請先選擇一個縣市！");
+              return;
+            }
+            // 判斷 resultLabel 是否為空或仍在顯示「骰子滾動中...」
+            if (!selectedTheme || selectedTheme === "骰子滾動中..." || selectedTheme === "") {
+              alert("請先擲出命運骰子，獲取旅遊主題！");
+              return;
+            }
+
+            // 準備要發送到後端的資料 (使用 FormData)
+            const formData = new FormData();
+            formData.append("region", selectedCity); // 傳送縣市
+            formData.append("theme", selectedTheme); // 傳送骰子結果 (主題)
+
+            // 使用 Fetch API 發送 POST 請求到 Django 後端
+            fetch("http://127.0.0.1:8000/fate_dice/roll_dice/", { // **請確認這個 URL /roll_dice/ 與你的 Django `urls.py` 設定相符**
+              method: "POST",
+              body: formData,
+              // 如果你的 Django 後端沒有使用 @csrf_exempt，你需要加入 CSRF token
+              // 例如：
+              // headers: {
+              //     'X-CSRFToken': getCookie('csrftoken') // 需要定義 getCookie 函式
+              // }
+            })
+              .then((response) => {
+                if (!response.ok) { // 檢查 HTTP 狀態碼，如果不是 2xx，則拋出錯誤
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // 解析 JSON 回應
+              })
+              .then((data) => {
+                if (data.success) {
+                  console.log("成功獲取推薦資料:", data);
+                  // 將後端回傳的推薦資料、主題、縣市及來源頁面儲存到 localStorage
+                  localStorage.setItem("recommended_data", JSON.stringify(data.data));
+                  localStorage.setItem("travel_theme", data.theme);
+                  localStorage.setItem("travel_region", data.region);
+                  localStorage.setItem("source_page", "fate_dice"); // 標記來源頁面為 "fate_dice"
+
+                  // 成功後，跳轉到 result.html 頁面
+                  window.location.href = "./result.html"; 
+                } else {
+                  // 顯示後端回傳的錯誤訊息
+                  alert("推薦失敗: " + data.message);
+                  console.error("後端錯誤訊息:", data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Fetch 請求失敗:", error);
+                alert("請求失敗，請檢查網路或稍後再試。");
+              });
+          });
+        } else {
+          console.warn("找不到「開始推薦」按鈕、縣市選擇或結果顯示區域。請檢查 HTML ID/Class。");
+        }
+
+        // 如果需要 CSRF token，可以加入這個輔助函式 (目前後端有 @csrf_exempt 所以不需要)
+        // function getCookie(name) {
+        //     let cookieValue = null;
+        //     if (document.cookie && document.cookie !== '') {
+        //         const cookies = document.cookie.split(';');
+        //         for (let i = 0; i < cookies.length; i++) {
+        //             const cookie = cookies[i].trim();
+        //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     return cookieValue;
+        // }
+      });
+    </script>
   </body>
 </html>
