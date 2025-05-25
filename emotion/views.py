@@ -2,6 +2,13 @@ from planner.models import Destination
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random
+from django.shortcuts import render
+
+def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需要這個
+    return render(request, 'emotion.html')
+
+def result_view(request): # **新增這個函式**，用於渲染 result.html
+    return render(request, 'result.html')
 
 @csrf_exempt
 def generate_by_emotion(request):
@@ -18,11 +25,11 @@ def generate_by_emotion(request):
     # 這裡接前端使用者給的縣市
     region = request.POST.get('region', '台北')
 
-    # 根據縣市與主題篩選景點
     filtered_destinations = Destination.objects.filter(
         address__icontains=region,
-        emotion_type__icontains=emotion
+        suitable_emotions__name__icontains=emotion
     )
+
     
     # 隨機抽三個景點
     selected = random.sample(list(filtered_destinations), min(3, len(filtered_destinations)))
@@ -34,7 +41,9 @@ def generate_by_emotion(request):
         "description": d.description,
         "image_url": d.image_url,
         "address": d.address,
-        "category": d.get_category(),
+        "category": d.category,
+        "opening_hours":d.opening_hours,
+        "contact_info":d.contact_info
     } for d in selected]
 
     return JsonResponse({
