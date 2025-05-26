@@ -34,7 +34,7 @@ class Destination(models.Model):
         self.category = json.dumps(category_list)
 
     def get_category(self):
-        return json.loads(self.category)
+        return self.category
     
     class Meta:
         verbose_name = "景點"

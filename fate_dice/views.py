@@ -1,17 +1,11 @@
-from planner.models import Destination
+from planner.models import Destination, Travel_Themes
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random
-from django.shortcuts import render # 確保這裡有導入 render
+from django.shortcuts import render
 
 def fate_dice_view(request):
     return render(request, 'fate_dice.html')
-
-def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需要這個
-    return render(request, 'emotion.html')
-
-def result_view(request): # **新增這個函式**，用於渲染 result.html
-    return render(request, 'result.html')
 
 @csrf_exempt
 def roll_dice(request):
@@ -22,53 +16,75 @@ def roll_dice(request):
             "data": None
         }, status=405)
 
-    selected_theme = request.POST.get('theme')
-    region = request.POST.get('region')
+    # 這裡幫我接前端骰子的結果）
+    themes = ["美食之旅", "自然風景", "文化歷史", "冒險活動", "購物娛樂", "休閒放鬆"]
+    selected_theme = random.choice(themes)
 
-    if not selected_theme:
+    # 這裡接前端使用者給的縣市
+    region = request.POST.get('region', '台北')
+
+    region_mapping = {
+        "keelung": "基隆",
+        "taipei": "台北",
+        "new_taipei": "新北",
+        "taoyuan": "桃園",
+        "hsinchu_city": "新竹", # 假設新竹市的 value 是這個
+        "miaoli": "苗栗",
+        "taichung": "臺中", # 注意前端是臺中
+        "changhua": "彰化",
+        "nantou": "南投",
+        "yunlin": "雲林",
+        "chiayi_city": "嘉義", # 假設嘉義市的 value 是這個
+        "tainan": "臺南", # 注意前端是臺南
+        "kaohsiung": "高雄",
+        "pingtung": "屏東",
+        "yilan": "宜蘭",
+        "hualien": "花蓮",
+        "taitung": "臺東", # 注意前端是臺東
+    }
+
+    actual_region_name = region_mapping.get(region, region)
+
+    # 根據縣市＋主題篩選景點
+    try:
+        filtered_destinations = Destination.objects.filter(
+            address__icontains=actual_region_name, # address 是 TextField，直接使用 icontains
+            theme__name__icontains=selected_theme # theme 是 ForeignKey，透過 __name 訪問 Travel_Themes 的 name 欄位
+        )
+    except Exception as e:
+        print(f"篩選目的地時發生錯誤: {e}")
         return JsonResponse({
             "success": False,
-            "message": "缺少旅遊主題資訊",
+            "message": "數據庫查詢錯誤，請確認模型關係和字段名稱。",
             "data": None
-        }, status=400)
-    
-    if not region:
+        }, status=500)
+
+    # 隨機抽五個
+    if not filtered_destinations.exists(): # 使用 .exists() 檢查 queryset 是否為空
         return JsonResponse({
             "success": False,
-            "message": "缺少縣市資訊",
-            "data": None
-        }, status=400)
+            "message": f"在「{actual_region_name}」中找不到主題為「{selected_theme}」的景點。請嘗試其他選項。",
+            "theme": selected_theme,
+            "data": []
+        })
 
-    # 確保你的 Destination model 有 address 和 theme 字段
-    filtered_destinations = Destination.objects.filter(
-        address__icontains=region,
-        theme__icontains=selected_theme
-    )
     
-    num_to_select = min(5, len(filtered_destinations))
-    if num_to_select == 0:
-        selected_destinations = []
-        message_suffix = "，但該縣市此主題沒有相關景點。"
-    else:
-        selected_destinations = random.sample(list(filtered_destinations), num_to_select)
-        message_suffix = f"！找到 {num_to_select} 個推薦景點。"
-        if num_to_select < 5:
-            message_suffix = f"！找到 {num_to_select} 個推薦景點 (不足 5 個)。"
-
+    # 隨機抽五個
+    selected = random.sample(list(filtered_destinations), min(5, len(filtered_destinations)))
 
     data = [{
         "id": d.id,
         "name": d.name,
         "description": d.description,
-        "image_url": d.image_url.url if d.image_url else None, # 確保能獲取圖片 URL
+        "image_url": d.image_url,
         "address": d.address,
-        "category": d.get_category(), # 假設 get_category() 函式存在於 Destination model
-    } for d in selected_destinations]
+        "category": d.get_category(),
+        "theme": d.theme.name,
+    } for d in selected]
 
     return JsonResponse({
         "success": True,
-        "message": f"🎲 你擲出的主題是「{selected_theme}」，這是我們在「{region}」推薦的行程景點{message_suffix}",
-        "theme": selected_theme, # 將主題也傳回前端
-        "region": region, # 將縣市也傳回前端
+        "message": f"🎲 你擲出的主題是「{selected_theme}」，這是我們在「{region}」推薦的行程景點！",
+        "theme": selected_theme,
         "data": data
     })

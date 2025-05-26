@@ -49,10 +49,12 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // 從 sessionStorage 讀取請求資料
-        const storedRequestData = sessionStorage.getItem("plannerRequestData");
+        const plannerData = sessionStorage.getItem("plannerRequestData");
+        // 讀取 fateDiceRequest
+        const fateDiceData = sessionStorage.getItem("fateDiceRequest");
 
-        if (storedRequestData) {
-          const requestData = JSON.parse(storedRequestData);
+        if (plannerData) {
+          const requestData = JSON.parse(plannerData);
 
           fetch("http://127.0.0.1:8000/planner/generate_itinerary/", {
             method: "POST",
@@ -73,7 +75,10 @@
               console.log("API 回傳資料:", data);
               if (data.success) {
                 // 將行程資料儲存到 sessionStorage
-                sessionStorage.setItem("itineraryData", JSON.stringify(data.data));
+                sessionStorage.setItem(
+                  "itineraryData",
+                  JSON.stringify(data.data),
+                );
                 sessionStorage.setItem("itineraryMessage", data.message); // 也將訊息儲存起來
                 // 導向到結果頁面
                 window.location.href = "./plannerResult.html"; // 請確認你的結果頁面名稱
@@ -89,11 +94,7 @@
               // 發生錯誤時導回 planner.html
               window.location.href = "./planner.html";
             });
-        } else {
-          // 如果沒有找到請求資料，可能是直接進入 loading 頁面，導回 planner.html
-          alert("未找到排程資料，請重新填寫。");
-          window.location.href = "./planner.html";
-        }
+        } 
       });
     </script>
   </body>
