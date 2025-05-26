@@ -1,8 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("resultContainer");
+
+  const displayValue = (val) => {
+    if (!val || (typeof val === "object" && Object.keys(val).length === 0)) return "無";
+    return val;
+  };
+
+  // 從 URL 取得參數
   const params = new URLSearchParams(window.location.search);
   const emotion = params.get("emotion") || "放鬆";
   const city = params.get("city") || "taipei";
 
+  // 比對 localStorage 裡是否有相同的結果
+  const savedData = localStorage.getItem("emotionResults");
+  const savedEmotion = localStorage.getItem("emotionParam");
+  const savedCity = localStorage.getItem("cityParam");
+
+  if (savedData && savedEmotion === emotion && savedCity === city) {
+    const resultsWithId = JSON.parse(savedData);
+    container.innerHTML = resultsWithId
+      .map((d) => `
+        <div class="re-result">
+          <h2>${displayValue(d.name)}</h2>
+          <img src="${displayValue(d.image_url)}" alt="${displayValue(d.name)}" />
+          <p><strong>地址：</strong>${displayValue(d.address)}</p>
+          <p><strong>分類：</strong>${displayValue(d.category)}</p>
+          <a href="emotionDetail.html?id=${d.id}" class="button">查看詳情</a>
+        </div>
+      `).join("");
+    return;
+  }
+
+  // 城市對應區域表
   const cityToRegionKey = {
     'keelung': '基隆',
     'taipei': '台北',
@@ -25,11 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const regionKey = cityToRegionKey[city] || "台北";
 
-  const displayValue = (val) => {
-    if (!val || (typeof val === "object" && Object.keys(val).length === 0)) return "無";
-    return val;
-  };
-
+  // 發送 API 請求
   fetch('http://127.0.0.1:8000/emotion/generate-by-emotion/', {
     method: 'POST',
     headers: {
@@ -42,29 +67,33 @@ document.addEventListener("DOMContentLoaded", () => {
   })
     .then((res) => res.json())
     .then((data) => {
-      const container = document.getElementById("resultContainer");
       if (data.success) {
-        container.innerHTML = data.data
+        const resultsWithId = data.data.map((d, index) => ({
+          ...d,
+          id: "emotion_" + index,
+        }));
+
+        // 存進 localStorage
+        localStorage.setItem("emotionResults", JSON.stringify(resultsWithId));
+        localStorage.setItem("emotionParam", emotion);
+        localStorage.setItem("cityParam", city);
+
+        container.innerHTML = resultsWithId
           .map((d) => `
             <div class="re-result">
-                <h2>${displayValue(d.name)}</h2>
-                <p><strong>地點描述：</strong>${displayValue(d.description)}</p>
-                <img src="${displayValue(d.image_url)}" alt="${displayValue(d.name)}" />
-                <p><strong>地址：</strong>${displayValue(d.address)}</p>
-                <p><strong>分類：</strong>${displayValue(d.category)}</p>
-                <p><strong>營業時間：</strong>${displayValue(d.opening_hours)}</p>
-                <p><strong>聯絡資訊：</strong>${displayValue(d.contact_info)}</p>
+              <h2>${displayValue(d.name)}</h2>
+              <img src="${displayValue(d.image_url)}" alt="${displayValue(d.name)}" />
+              <p><strong>地址：</strong>${displayValue(d.address)}</p>
+              <p><strong>分類：</strong>${displayValue(d.category)}</p>
+              <a href="emotionDetail.html?id=${d.id}" class="button">查看詳情</a>
             </div>
-            `)
-
-          .join("");
+          `).join("");
       } else {
         container.innerHTML = `<p style="color:red;">取得資料失敗：${data.message}</p>`;
       }
     })
     .catch((err) => {
       console.error(err);
-      document.getElementById("resultContainer").innerHTML =
-        "<p style='color:red;'>伺服器錯誤，請稍後再試</p>";
+      container.innerHTML = "<p style='color:red;'>伺服器錯誤，請稍後再試</p>";
     });
 });
