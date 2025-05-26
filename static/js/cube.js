@@ -31,12 +31,8 @@ document.querySelector(".startButton").addEventListener("click", () => {
   const spinX = 1080;
   const spinY = 1080;
   cube.style.transition = "none";
-<<<<<<< HEAD
-  cube.style.transform='rotateX(deg) ratateY(deg)';
-=======
   cube.style.transform = `rotateX(0deg) rotateY(0deg)`;
 
->>>>>>> 5944db30775f968b0302d813ae8563f3adab757b
   resultLabel.classList.remove("show");
   resultLabel.textContent = "";
 
