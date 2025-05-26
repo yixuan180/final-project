@@ -611,6 +611,16 @@ hr:after {
   margin-bottom: 0.75rem;
 }
 
+.re-result img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+  border-radius: 8px; /* 可選：讓圖片角落圓潤 */
+  object-fit: cover;  /* 如果未來你要固定高度可搭配 */
+}
+
+
 * {
   padding: 0;
   margin: 0;
