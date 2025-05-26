@@ -1,11 +1,20 @@
 from planner.models import Destination
+import json
 import re
 import google.generativeai as genai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.shortcuts import render
+
+
+
 
 # 設定 Gemini API 金鑰
 genai.configure(api_key="AIzaSyAGsPf8khZvCh6g_4PIhQ1ltUJKV-11lu0")
+
+def planner_view(request):
+    return render(request, 'planner/planner.html')
 
 @csrf_exempt
 def generate_itinerary(request):
@@ -15,26 +24,78 @@ def generate_itinerary(request):
             "message": "只接受 POST 請求",
             "data": None
         }, status=405)
+    
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({
+            "success": False,
+            "message": "JSON 格式錯誤",
+            "data": None
+        }, status=400)
 
-    # 這裡要串前端的接收用戶的輸入
-    region = request.POST.get('region', '台北')
-    # 這裡預算前端給的是區間
-    budget = float(request.POST.get('budget', 6000))
-    theme = request.POST.get('theme', '美食之旅')
-    start_date = request.POST.get('start_date', '2025-06-01')
-    end_date = request.POST.get('end_date', '2025-06-04')
+    frontend_raw_region = data.get('region', 'taipei') 
+    frontend_raw_theme = data.get('theme', 'food') 
+    
+    # 獲取其他參數
+    budget = float(data.get('budget', 6000))
+    start_date = data.get('start_date', '2025-06-01')
+    end_date = data.get('end_date', '2025-06-04')
 
-    # 過濾符合主題與地區的景點
+    
+    # 縣市名稱映射表：鍵(key)是前端傳來的英文值，值(value)是資料庫中對應的中文值
+    region_mapping = {
+        'keelung': '基隆',
+        'taipei': '台北',
+        'new_taipei': '新北',
+        'taoyuan': '桃園',
+        'hsinchu_city': '新竹',
+        'miaoli': '苗栗',
+        'taichung': '臺中',
+        'changhua': '彰化',
+        'nantou': '南投',
+        'yunlin': '雲林',
+        'chiayi_city': '嘉義',
+        'tainan': '臺南',
+        'kaohsiung': '高雄',
+        'pingtung': '屏東',
+        'yilan': '宜蘭',
+        'hualien': '花蓮',
+        'taitung': '臺東',
+    }
+    # 主題名稱映射表：鍵(key)是前端傳來的英文值，值(value)是資料庫中對應的中文值
+    theme_mapping = {
+        'food': '美食之旅',
+        'nature': '自然風景',
+        'culture': '文化歷史',
+        'adventure': '冒險活動',
+        'shopping': '購物娛樂',
+        'relax': '休閒放鬆',
+    }
+
+    region_for_db_query = region_mapping.get(frontend_raw_region, frontend_raw_region) 
+    theme_for_db_query = theme_mapping.get(frontend_raw_theme, frontend_raw_theme) 
+
     destinations = list(Destination.objects.filter(
-        address__icontains=region,
-        theme__icontains=theme
+        address__icontains=region_for_db_query, 
+        theme__name__icontains=theme_for_db_query 
     ))
+    
+    print(f"前端傳遞的原始 region: {frontend_raw_region}, 原始 theme: {frontend_raw_theme}")
+    print(f"轉換後用於資料庫查詢的 region: {region_for_db_query}, theme: {theme_for_db_query}") # 檢查這行！
+    print(f"資料庫查詢條件：address__icontains='{region_for_db_query}', theme__name__icontains='{theme_for_db_query}'")
+    print("📍找到景點數量：", len(destinations))
+    for d in destinations:
+        print("🔹", d.name, "-", d.address, "-", d.theme.name)
 
-    prompt = build_prompt(destinations, region, start_date, end_date, budget, theme)
+    prompt = build_prompt(destinations, region_for_db_query, start_date, end_date, budget, theme_for_db_query) 
 
     try:
-        model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+        model = genai.GenerativeModel(model_name="gemini-2.0-flash")
         response = model.generate_content(prompt)
+
+        
+        print("Gemini 原始回應:", response.text)
 
         itinerary_text = response.text.strip()
 
@@ -87,31 +148,76 @@ def build_prompt(destinations, region, start_date, end_date, budget, theme):
     return prompt
 
 def parse_itinerary_to_json(itinerary_text):
-    day_blocks = re.split(r'\n(?=第[一二三四五六七]天（\d{4}/\d{2}/\d{2}）)', itinerary_text)
     result = []
+
+    day_header_pattern = r'(?:\s*\*\*?)?[\s\*]*(第[一二三四五六七]天[（(]\s*\d{4}[/-]\d{2}[/-]\d{2}\s*[)）])[\s\*]*\n*'
+    day_header_matches = list(re.finditer(day_header_pattern, itinerary_text))
+
+    day_blocks = []
+    if not day_header_matches:
+        day_blocks.append(itinerary_text)
+    else:
+        for i, match in enumerate(day_header_matches):
+            start_index = match.start()
+            if i + 1 < len(day_header_matches):
+                end_index = day_header_matches[i+1].start()
+                day_blocks.append(itinerary_text[start_index:end_index])
+            else:
+                day_blocks.append(itinerary_text[start_index:])
+    
+    # 輔助函數：清理 Markdown 符號和多餘的空格/換行
+    def clean_markdown(text):
+        if text:
+            text = re.sub(r'(\*\*|\*|__|_)', '', text) 
+            text = re.sub(r'^[ \t]*[-*+]\s+', '', text, flags=re.MULTILINE)
+            text = re.sub(r'\s+', ' ', text).strip()
+        return text
 
     for day_block in day_blocks:
         if not day_block.strip():
             continue
 
-        day_match = re.search(r'(第[一二三四五六七]天（\d{4}/\d{2}/\d{2}）)', day_block)
-        day_title = day_match.group(1) if day_match else "未知日期"
+        day_title = "未知日期"
+        day_content_to_parse = day_block.strip()
 
+        day_match_in_block = re.search(day_header_pattern, day_content_to_parse)
+        if day_match_in_block:
+            day_title = day_match_in_block.group(1).strip()
+            # 確保從標題結束的位置開始解析，避免重複解析標題
+            day_content_to_parse = day_content_to_parse[day_match_in_block.end():].strip()
+        
         morning = None
         afternoon = None
         evening = None
-
-        morning_match = re.search(r'- 早上：(.*?)(?:- 下午：|- 晚上：|$)', day_block, re.S)
+        
+        # 早上：
+        morning_match = re.search(
+            r'(?:[\s\-\*]*?\s*)?(?:早上|上午)\s*(?:[\(（][^）)]*[\)）])?[：:]\s*([\s\S]*?)(?=\n*(?:(?:[\s\-\*]*?\s*)?(?:下午|晚上|中午|午間|黃昏|傍晚)[：:]|[\s\*]*(?:第[一二三四五六七]天[（(]\s*\d{4}[/-]\d{2}[/-]\d{2}\s*[)）])|\Z))',
+            day_content_to_parse, re.DOTALL
+        )
         if morning_match:
             morning = morning_match.group(1).strip()
 
-        afternoon_match = re.search(r'- 下午：(.*?)(?:- 晚上：|$)', day_block, re.S)
+        # 下午：
+        afternoon_match = re.search(
+            r'(?:[\s\-\*]*?\s*)?下午\s*(?:[\(（][^）)]*[\)）])?[：:]\s*([\s\S]*?)(?=\n*(?:(?:[\s\-\*]*?\s*)?(?:晚上|黃昏|傍晚)[：:]|[\s\*]*(?:第[一二三四五六七]天[（(]\s*\d{4}[/-]\d{2}[/-]\d{2}\s*[)）])|\Z))',
+            day_content_to_parse, re.DOTALL
+        )
         if afternoon_match:
             afternoon = afternoon_match.group(1).strip()
 
-        evening_match = re.search(r'- 晚上：(.*)', day_block, re.S)
+        # 晚上：
+        evening_match = re.search(
+            r'(?:[\s\-\*]*?\s*)?晚上\s*(?:[\(（][^）)]*[\)）])?[：:]\s*([\s\S]*?)(?=\n*(?:[\s\*]*(?:預算說明|預算分配|注意事項|備註)[：:]|[\s\*]*(?:第[一二三四五六七]天[（(]\s*\d{4}[/-]\d{2}[/-]\d{2}\s*[)）])|\Z))',
+            day_content_to_parse, re.DOTALL
+        )
         if evening_match:
             evening = evening_match.group(1).strip()
+            
+        # 統一清理所有時段的內容
+        morning = clean_markdown(morning)
+        afternoon = clean_markdown(afternoon)
+        evening = clean_markdown(evening)
 
         result.append({
             "day": day_title,

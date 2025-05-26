@@ -1,51 +1,50 @@
-const emotionButtons = document.querySelectorAll(".firstemo");
-const daySelect = document.getElementById("datechosen");
-const submitBtn = document.getElementById("submitBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const emotionButtons = document.querySelectorAll(".firstemo");
+  const citySelect = document.getElementById("city");
+  const openModalBtn = document.getElementById("openModalBtn");
 
-let selectedEmotion = null;
+  let selectedEmotion = null;
 
-// 點選情緒圖片
-emotionButtons.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault(); // 阻止 <a> 跳轉
+  const emotionMap = {
+    "1": "開心",
+    "2": "放鬆",
+    "3": "焦慮",
+    "4": "難過",
+  };
 
-    // 移除所有選擇
-    emotionButtons.forEach((b) => b.classList.remove("selected"));
-
-    // 標示選取
-    btn.classList.add("selected");
-
-    selectedEmotion = btn.getAttribute("data-index");
-
-    checkFormValid();
+  // 點選情緒圖片
+  emotionButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      emotionButtons.forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      selectedEmotion = btn.getAttribute("data-index");
+      checkFormValid();
+    });
   });
-});
 
-// 監聽下拉選單
-daySelect.addEventListener("change", () => {
+  // 監聽城市選擇
+  citySelect.addEventListener("change", checkFormValid);
+
+  // 檢查是否可啟用按鈕
+  function checkFormValid() {
+    openModalBtn.disabled = !(selectedEmotion && citySelect.value);
+  }
+
+  // 點擊按鈕事件
+  openModalBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (!selectedEmotion || citySelect.value === "") {
+      alert("請先選擇一個情緒與縣市！");
+      return;
+    }
+
+    const emotionName = emotionMap[selectedEmotion];
+    const queryString = `?emotion=${emotionName}&city=${citySelect.value}`;
+    window.open(`./emotionResult.html${queryString}`, "_blank");
+  });
+
+  // 初始檢查一次表單
   checkFormValid();
-});
-
-// 檢查表單狀態
-function checkFormValid() {
-  if (selectedEmotion && daySelect.value !== "") {
-    submitBtn.disabled = false;
-  } else {
-    submitBtn.disabled = true;
-  }
-}
-
-// 初始禁用按鈕
-submitBtn.disabled = true;
-
-// 按鈕點擊事件
-submitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  if (!selectedEmotion || daySelect.value === "") {
-    alert("請先選擇一個情緒與縣市！");
-    return;
-  }
-
-  alert(`你選擇的情緒是 ${selectedEmotion}，縣市為 ${daySelect.value}！`);
 });

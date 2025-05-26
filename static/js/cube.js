@@ -51,3 +51,5 @@ document.querySelector(".startButton").addEventListener("click", () => {
     resultLabel.classList.add("show");
   }, 2100);
 });
+
+

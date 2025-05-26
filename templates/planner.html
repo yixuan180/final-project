@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
   <head>
     <title>Traveler - 智慧旅行排程</title>
@@ -20,7 +15,6 @@
 
   <body class="left-sidebar is-preload">
     <div id="page-wrapper">
-      <!-- Nav -->
       <div id="header" style="display: none"></div>
       <nav id="nav">
         <ul>
@@ -31,7 +25,6 @@
         </ul>
       </nav>
 
-      <!-- Main -->
       <div class="wrapper style1">
         <div class="container">
           <article id="main" class="special">
@@ -41,7 +34,6 @@
             </header>
 
             <form id="customScheduleForm" class="row gtr-50">
-              <!-- 選擇縣市 -->
               <div class="col-12">
                 <label for="city" class="form-label">選擇縣市</label>
                 <select id="city" class="form-select" required>
@@ -52,21 +44,20 @@
                   <option value="taoyuan">桃園</option>
                   <option value="hsinchu_city">新竹</option>
                   <option value="miaoli">苗栗</option>
-                  <option value="taichung">台中</option>
+                  <option value="taichung">臺中</option>
                   <option value="changhua">彰化</option>
                   <option value="nantou">南投</option>
                   <option value="yunlin">雲林</option>
                   <option value="chiayi_city">嘉義</option>
-                  <option value="tainan">台南</option>
+                  <option value="tainan">臺南</option>
                   <option value="kaohsiung">高雄</option>
                   <option value="pingtung">屏東</option>
                   <option value="yilan">宜蘭</option>
                   <option value="hualien">花蓮</option>
-                  <option value="taitung">台東</option>
+                  <option value="taitung">臺東</option>
                 </select>
               </div>
 
-              <!-- 預算範圍 -->
               <div class="col-12">
                 <label for="budgetRange" class="form-label"
                   >預算區間 (NT$)</label
@@ -77,13 +68,12 @@
                   <option value="200-500">200 - 500 元</option>
                   <option value="500-1000">500 - 1,000 元</option>
                   <option value="1000-3000">1,000 - 3,000 元</option>
-                  <option value="1000-3000">3,000 - 5,000 元</option>
-                  <option value="1000-3000">5,000 - 8,000 元</option>
-                  <option value="3000-999999">8,000 元以上</option>
+                  <option value="3000-5000">3,000 - 5,000 元</option>
+                  <option value="5000-8000">5,000 - 8,000 元</option>
+                  <option value="8000-999999">8,000 元以上</option>
                 </select>
               </div>
 
-              <!-- 偏好類型 -->
               <div class="col-12">
                 <label for="preference" class="form-label">偏好類型</label>
                 <select id="preference" class="form-select" required>
@@ -96,7 +86,6 @@
                   <option value="relax">休閒放鬆</option>
                 </select>
               </div>
-              <!--日期-->
               <div class="col-12 col-md-6">
                 <label for="startDate" class="form-label">出發日期</label>
                 <input
@@ -120,7 +109,6 @@
                 />
               </div>
 
-              <!-- 開始排程按鈕 -->
               <div class="col-12 text-center mt-4">
                 <button type="submit" class="button primary" onclick="submitSchedule()">開始排程</button>
               
@@ -131,10 +119,8 @@
         </div>
       </div>
 
-      <!-- Footer -->
       <div id="footer">
         <div class="container">
-          <!-- Contact -->
           <section class="contact">
             <header>
               <h3>聯絡我們</h3>
@@ -154,7 +140,6 @@
             </ul>
           </section>
 
-          <!-- Copyright -->
           <div class="copyright">
             <ul class="menu">
               <li>&copy; Untitled. All rights reserved.</li>
@@ -165,7 +150,7 @@
       </div>
     </div>
 
-    <!-- Scripts -->
+    <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/jquery.dropotron.min.js"></script>
     <script src="../static/js/jquery.scrolly.min.js"></script>
     <script src="../static/js/jquery.scrollex.min.js"></script>
@@ -173,6 +158,52 @@
     <script src="../static/js/breakpoints.min.js"></script>
     <script src="../static/js/util.js"></script>
     <script src="../static/js/main.js"></script>
+<<<<<<< HEAD
     <script src="../static/js/plannerResult.js"></script>
+=======
+    <script>
+      document
+        .getElementById("customScheduleForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // 阻止表單預設提交行為
+
+          // 獲取使用者輸入的值
+          const city = document.getElementById("city").value;
+          const budgetRange = document.getElementById("budgetRange").value;
+          const preference = document.getElementById("preference").value;
+          const startDate = document.getElementById("startDate").value;
+          const endDate = document.getElementById("endDate").value;
+
+          // 簡單處理預算範圍，取上限或預設值
+          let budget;
+          if (budgetRange.includes("-")) {
+            const parts = budgetRange.split("-");
+            budget = parseFloat(parts[1]); 
+          } else if (budgetRange.includes("以上")) {
+            budget = parseFloat(budgetRange.replace("8000 元以上", "8000")); 
+          } else {
+            budget = 6000;
+          }
+
+          // 構建要發送到後端的數據對象
+          const requestData = {
+            region: city, 
+            budget: budget, 
+            theme: preference,
+            start_date: startDate, 
+            end_date: endDate,
+          };
+
+          // 將請求資料儲存到 sessionStorage
+          sessionStorage.setItem(
+            "plannerRequestData",
+            JSON.stringify(requestData)
+          );
+
+          // 導向到 loading.html
+          window.location.href = "./loading.html";
+        });
+    </script>
+>>>>>>> e68871678598b23ea1bd45b4a6a395e65f369eae
   </body>
 </html>
