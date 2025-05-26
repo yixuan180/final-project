@@ -87,20 +87,24 @@
     <script src="../static/js/main.js"></script>
     <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // 獲取將填充內容的父容器，這次我們要填充到 re-container 裡面
+    // 獲取將填充內容的父容器，填充到 re-container 裡面
     const recommendationContainer = document.getElementById("recommendationContainer");
-    // 確認你的 HTML 中 <div class="re-container"> 有 id="recommendationContainer"
 
     // 你可能也想更新主標題
     const mainTitleElement = document.querySelector('article#main header.major h2');
+    const thrownThemeDisplayElement = document.getElementById('thrownThemeDisplay');
 
     const fateDiceResult = sessionStorage.getItem("fateDiceResult");
 
     if (fateDiceResult) {
       const data = JSON.parse(fateDiceResult);
-      console.log("從 sessionStorage 讀取到的數據:", data);
-
       if (data.success) {
+
+        if (thrownThemeDisplayElement) {
+          thrownThemeDisplayElement.innerText = data.message; // 直接使用後端回傳的完整訊息
+      } else {
+          console.warn("未找到 ID 為 'thrownThemeDisplay' 的元素來顯示擲出的主題訊息。");
+      }
 
         let htmlContent = ""; // 用來儲存所有推薦景點的 HTML
 
@@ -116,7 +120,9 @@
                                 <p><strong>類別：</strong>${destination.category}</p>
                                 <p><strong>主題：</strong>${destination.theme}</p>
                                 </div>
-                        `;
+              
+                                `;
+            console.log("當前景點回傳的主題:", destination.theme);
           });
         } else {
           // 如果沒有找到景點
@@ -146,6 +152,9 @@
         mainTitleElement.innerHTML = `沒有推薦結果`;
       }
       if (recommendationContainer) {
+        if (thrownThemeDisplayElement) { // 也顯示錯誤訊息
+        thrownThemeDisplayElement.innerText = "沒有找到命運骰子推薦結果，請重新擲骰子。";
+      }
         recommendationContainer.innerHTML = "<p style='text-align: center; width: 100%;'>沒有找到命運骰子推薦結果，請重新擲骰子。</p>";
       } else {
         console.error("無法找到 ID 為 'recommendationContainer' 的元素。");
@@ -153,7 +162,7 @@
       // 如果沒有結果，導回骰子頁面
       setTimeout(() => {
         window.location.href = "./fate_dice.html";
-      }, 2000); // 2秒後自動跳轉
+      }, 2000);
     }
   });
 </script>

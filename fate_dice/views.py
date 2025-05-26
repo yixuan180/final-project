@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random
 from django.shortcuts import render
+from django.conf import settings 
 
 def fate_dice_view(request):
     return render(request, 'fate_dice.html')
@@ -17,8 +18,7 @@ def roll_dice(request):
         }, status=405)
 
     # 這裡幫我接前端骰子的結果）
-    themes = ["美食之旅", "自然風景", "文化歷史", "冒險活動", "購物娛樂", "休閒放鬆"]
-    selected_theme = random.choice(themes)
+    selected_theme = request.POST.get('theme')
 
     # 這裡接前端使用者給的縣市
     region = request.POST.get('region', '台北')
@@ -28,29 +28,40 @@ def roll_dice(request):
         "taipei": "台北",
         "new_taipei": "新北",
         "taoyuan": "桃園",
-        "hsinchu_city": "新竹", # 假設新竹市的 value 是這個
+        "hsinchu_city": "新竹",
         "miaoli": "苗栗",
-        "taichung": "臺中", # 注意前端是臺中
+        "taichung": "臺中",
         "changhua": "彰化",
         "nantou": "南投",
         "yunlin": "雲林",
-        "chiayi_city": "嘉義", # 假設嘉義市的 value 是這個
-        "tainan": "臺南", # 注意前端是臺南
+        "chiayi_city": "嘉義",
+        "tainan": "臺南",
         "kaohsiung": "高雄",
         "pingtung": "屏東",
         "yilan": "宜蘭",
         "hualien": "花蓮",
-        "taitung": "臺東", # 注意前端是臺東
+        "taitung": "臺東",
     }
 
     actual_region_name = region_mapping.get(region, region)
 
     # 根據縣市＋主題篩選景點
     try:
+        # 1. 先根據名稱取得 Travel_Themes 物件
+        theme_obj = Travel_Themes.objects.get(name=selected_theme)
+
+        # 2. 使用 theme 物件進行精確篩選
         filtered_destinations = Destination.objects.filter(
-            address__icontains=actual_region_name, # address 是 TextField，直接使用 icontains
-            theme__name__icontains=selected_theme # theme 是 ForeignKey，透過 __name 訪問 Travel_Themes 的 name 欄位
+            address__icontains=actual_region_name,
+            theme=theme_obj  # <--- 將這裡改為精確匹配！
         )
+
+    except Travel_Themes.DoesNotExist:
+        return JsonResponse({
+            "success": False,
+            "message": f"選定的主題 '{selected_theme}' 不存在。",
+            "data": [],
+        }, status=500)
     except Exception as e:
         print(f"篩選目的地時發生錯誤: {e}")
         return JsonResponse({
@@ -59,8 +70,7 @@ def roll_dice(request):
             "data": None
         }, status=500)
 
-    # 隨機抽五個
-    if not filtered_destinations.exists(): # 使用 .exists() 檢查 queryset 是否為空
+    if not filtered_destinations.exists():
         return JsonResponse({
             "success": False,
             "message": f"在「{actual_region_name}」中找不到主題為「{selected_theme}」的景點。請嘗試其他選項。",
@@ -68,23 +78,29 @@ def roll_dice(request):
             "data": []
         })
 
-    
-    # 隨機抽五個
     selected = random.sample(list(filtered_destinations), min(5, len(filtered_destinations)))
 
-    data = [{
-        "id": d.id,
-        "name": d.name,
-        "description": d.description,
-        "image_url": d.image_url,
-        "address": d.address,
-        "category": d.get_category(),
-        "theme": d.theme.name,
-    } for d in selected]
+    data = []
+    for d in selected:
+        # 圖片路徑處理 (保持你之前加入的修正)
+        if d.image_url and d.image_url != 'nan':
+            full_image_url = f"{settings.STATIC_URL}{d.image_url}"
+        else:
+            full_image_url = f"{settings.STATIC_URL}images/default_placeholder.jpg"
+
+        data.append({
+            "id": d.id,
+            "name": d.name,
+            "description": d.description,
+            "image_url": full_image_url,
+            "address": d.address,
+            "category": d.get_category(),
+            "theme": d.theme.name, # 這個是從資料庫取出的景點主題
+        })
 
     return JsonResponse({
         "success": True,
         "message": f"🎲 你擲出的主題是「{selected_theme}」，這是我們在「{region}」推薦的行程景點！",
-        "theme": selected_theme,
+        "theme": selected_theme, # 這個是隨機骰出的主題
         "data": data
     })

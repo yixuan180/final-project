@@ -1,5 +1,6 @@
 let currentX = 0;
 let currentY = 0;
+let currentDiceTheme = "";
 
 document.querySelector(".startButton").addEventListener("click", () => {
   const cube = document.querySelector(".cube");
@@ -25,6 +26,8 @@ document.querySelector(".startButton").addEventListener("click", () => {
   const randomIndex = Math.floor(Math.random() * 6);
   const result = results[randomIndex];
   const rotation = rotations[randomIndex];
+
+  currentDiceTheme = result;
 
   const baseX = rotation.x;
   const baseY = rotation.y;
@@ -52,4 +55,7 @@ document.querySelector(".startButton").addEventListener("click", () => {
   }, 2100);
 });
 
+function getDiceTheme() {
+    return currentDiceTheme;
+}
 

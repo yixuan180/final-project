@@ -224,22 +224,23 @@
     <script src="../static/js/util.js"></script>
     <script src="../static/js/main.js"></script>
     <script>
-      // 建議將整個事件監聽器包裹在 DOMContentLoaded 內
       document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".startRec button").addEventListener("click", function (event) {
           event.preventDefault();
 
           // 獲取地點與骰子結果
           const city = document.getElementById("datechosen").value;
-          const theme = document.getElementById("resultLabel").innerText.trim();
+          const theme = getDiceTheme();
 
-          if (!city || !theme) {
-            alert("請確保已選擇地點並擲出骰子！");
+          if (!city) {
+            alert("請選擇縣市！");
             return;
           }
+          if (!theme) { 
+              alert("請先點擊「點擊開始」擲出旅遊主題！");
+              return;
+          }
 
-          // 不需要 requestData = JSON.parse(fateDiceData); 因為 fateDiceData 在這裡未定義且不必要
-          // 直接使用已獲取的 city 和 theme 變數
           const formData = new URLSearchParams();
           formData.append("region", city);
           formData.append("theme", theme); // 雖然後端目前沒有用 theme 篩選，但保持傳遞
@@ -265,22 +266,17 @@
               if (data.success) {
                 sessionStorage.setItem("fateDiceResult", JSON.stringify(data));
                 // 成功獲取數據後，導向到結果頁面
-                window.location.href = "./fate_diceResult.html"; // 正確的跳轉
+                window.location.href = "./fate_diceResult.html";
               } else {
                 alert("命運骰子推薦失敗: " + data.message);
-                // 如果失敗，在當前頁面處理錯誤，避免不必要的跳轉
-                // 例如：可以考慮顯示一個錯誤訊息，而不是重新導向
-                window.location.reload(); // 或者刷新頁面讓使用者重新選擇
               }
             })
             .catch((error) => {
               console.error("Fate Dice API 錯誤:", error);
               alert("發生錯誤: " + error.message);
-              // 發生錯誤時，在當前頁面處理錯誤
-              window.location.reload(); // 或者刷新頁面讓使用者重新選擇
             });
         });
-      }); // DOMContentLoaded 的結束括號
+      });
     </script>
   </body>
 </html>
