@@ -85,7 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
               <img src="${displayValue(d.image_url)}" alt="${displayValue(d.name)}" />
               <p><strong>地址：</strong>${displayValue(d.address)}</p>
               <p><strong>分類：</strong>${displayValue(d.category)}</p>
-              <a href="emotionDetail.html?id=${d.id}" class="button">查看詳情</a>
+              <div style="text-align: center; margin-top: 1em;">
+                <a href="emotionDetail.html?id=${d.id}" class="button">查看詳情</a>
+              </div>
             </div>
           `).join("");
       } else {

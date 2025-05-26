@@ -27,29 +27,34 @@
       </nav>
 
     <div class="wrapper style1">
-      <article id="main" class="special">
-        <header class="major">
-          <h2>推薦行程</h2>
-          <p><i class="fa-solid fa-location-dot"></i>&nbsp;選擇一個您喜歡的行程吧！</p>
-        </header>
-      </article>
+    <article id="main" class="special">
+      <header class="major">
+        <h2>推薦行程</h2>
+        <p><i class="fa-solid fa-location-dot"></i>&nbsp;選擇一個您喜歡的行程吧！</p>
+      </header>
+    </article>
 
-    <div style="text-align: center">
-      <button onclick="
-        localStorage.removeItem('emotionResults');
-        localStorage.removeItem('emotionParam');
-        localStorage.removeItem('cityParam');
-        location.reload();
-      " class="button mt-4">
+    <!-- 把重新推薦放這裡 -->
+    <div style="text-align: center; margin-top: -1.5em; margin-bottom: 1em;">
+      <a
+        href="javascript:void(0)"
+        class="button"
+        onclick="
+          localStorage.removeItem('emotionResults');
+          localStorage.removeItem('emotionParam');
+          localStorage.removeItem('cityParam');
+          location.reload();"
+      >
         重新推薦
-      </button>
-
+      </a>
+    </div>
 
     <div class="re-box">
       <div class="re-container" id="resultContainer">
         <!-- JavaScript 會把推薦行程放進來 -->
       </div>
     </div>
+  </div>
 
       <!-- Footer -->
       <div id="footer">

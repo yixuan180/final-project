@@ -18,12 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("placeHours").textContent = display(place.opening_hours);
     document.getElementById("placeContact").textContent = display(place.contact_info);
 
-    const placeImage = document.getElementById("placeImage");
-    if (!place.image_url || place.image_url.trim() === "" ) {
-      placeImage.style.display = "none";
-    } else {
-      placeImage.style.display = "block";
-    }
   } else {
     document.body.innerHTML = "<p style='color:red;'>找不到該景點資訊，請重新操作。</p>";
   }
