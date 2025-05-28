@@ -22,10 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
       .map((d) => `
         <div class="re-result">
           <h2>${displayValue(d.name)}</h2>
-          <img src="${displayValue(d.image_url)}" alt="${displayValue(d.name)}" />
+          <img src="${displayValue(d.image_url)}" alt="${displayValue(d.name)}" style="max-width:100%; height:auto; margin-bottom: 1em;"/>
           <p><strong>地址：</strong>${displayValue(d.address)}</p>
           <p><strong>分類：</strong>${displayValue(d.category)}</p>
-          <a href="emotionDetail.html?id=${d.id}" class="button">查看詳情</a>
+          <div style="text-align: center; margin-top: 1em;">
+            <a href="emotionDetail.html?id=${d.id}" class="button">查看詳情</a>
+          </div>
         </div>
       `).join("");
     return;

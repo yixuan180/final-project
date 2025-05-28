@@ -1,48 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>  
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="zh-TW">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>推薦結果</title>
+    <title>Traveler - 景點詳情</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
     <link rel="stylesheet" href="../static/css/main.css" />
-    <noscript
-      ><link rel="stylesheet" href="assets/css/noscript.css"
-    /></noscript>
+    <noscript>
+      <link rel="stylesheet" href="../static/css/noscript.css" />
+    </noscript>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
   </head>
-
   <body class="no-sidebar is-preload">
-    <div id="page-wrapper">
+    <div>
       <!-- Nav -->
       <nav id="nav">
         <ul>
-          <li><a href="index.html">首頁</a></li>
+          <li><a href="./index.html">首頁</a></li>
           <li><a href="./planner.html">智慧旅行排程</a></li>
           <li><a href="./fate_dice.html">命運骰子</a></li>
           <li><a href="./emotion.html">情緒導向推薦</a></li>
         </ul>
       </nav>
 
+      <!-- Main -->
       <div class="wrapper style1">
-        <article id="main" class="special">
-          <header class="major">
-            <h2>推薦行程</h2>
-            <p>
-              <i class="fa-solid fa-location-dot"></i
-              >&nbsp;選擇一個您喜歡的行程吧！
-            </p>
-          </header>
-        </article>
+        <div class="container">
+          <article id="main" class="special">
+            <header class="major">
+              <h2 id="placeTitle">景點名稱</h2>
+            </header>
 
-        <div class="re-box">
-          <div class="re-container" id="recommendationContainer">
-          </div>
+            <div style="width: 100%; max-width: 600px; margin: 0 auto 24px auto;">
+              <img
+                id="placeImage"
+                src=""
+                alt="景點圖片"
+                style="
+                  aspect-ratio: 3 / 2;
+                  width: 100%;
+                  object-fit: cover;
+                  border-radius: 12px;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                  display: block;
+                "
+                class="mb-4"
+              />
+            </div>
+
+            <!-- 地點描述直接顯示內容，不用加標題 -->
+            <p id="placeDescription" style="margin-bottom: 16px;"></p>
+
+            <p><strong>地址：</strong><span id="placeAddress"></span></p>
+            <p><strong>分類：</strong><span id="placeCategory"></span></p>
+            <p><strong>營業時間：</strong><span id="placeHours"></span></p>
+            <p><strong>聯絡資訊：</strong><span id="placeContact"></span></p>
+
+          </article>
         </div>
       </div>
-    
+
       <!-- Footer -->
       <div id="footer">
         <div class="container">
@@ -86,6 +113,7 @@
     <script src="../static/js/breakpoints.min.js"></script>
     <script src="../static/js/util.js"></script>
     <script src="../static/js/main.js"></script>
-    <script src="../static/js/fate_diceResult.js"></script>
+    <script src="../static/js/fate_diceDetail.js"></script>
   </body>
 </html>
+

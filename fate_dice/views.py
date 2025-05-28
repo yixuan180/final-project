@@ -17,7 +17,7 @@ def roll_dice(request):
             "data": None
         }, status=405)
 
-    # 這裡幫我接前端骰子的結果）
+    # 這裡接前端骰子的結果）
     selected_theme = request.POST.get('theme')
 
     # 這裡接前端使用者給的縣市
@@ -78,25 +78,19 @@ def roll_dice(request):
             "data": []
         })
 
-    selected = random.sample(list(filtered_destinations), min(5, len(filtered_destinations)))
+    selected = random.sample(list(filtered_destinations), min(6, len(filtered_destinations)))
 
-    data = []
-    for d in selected:
-        # 圖片路徑處理 (保持你之前加入的修正)
-        if d.image_url and d.image_url != 'nan':
-            full_image_url = f"{settings.STATIC_URL}{d.image_url}"
-        else:
-            full_image_url = f"{settings.STATIC_URL}images/default_placeholder.jpg"
-
-        data.append({
-            "id": d.id,
-            "name": d.name,
-            "description": d.description,
-            "image_url": full_image_url,
-            "address": d.address,
-            "category": d.get_category(),
-            "theme": d.theme.name, # 這個是從資料庫取出的景點主題
-        })
+    data = [{
+        "id": d.id,
+        "name": d.name,
+        "description": d.description,
+        "image_url": d.image_url,
+        "address": d.address,
+        "category": d.category,
+        "opening_hours":d.opening_hours,
+        "contact_info":d.contact_info,
+        "theme": d.theme.name # 這個是從資料庫取出的景點主題
+    } for d in selected]
 
     return JsonResponse({
         "success": True,
