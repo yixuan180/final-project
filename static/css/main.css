@@ -207,7 +207,7 @@ body {
   color: #3b0a0a;
   font-size: 15pt;
   line-height: 1.85em;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Noto Sans TC", "微軟正黑體", "Heiti TC", "PingFang TC", sans-serif;
   font-weight: 300;
 }
 
@@ -229,7 +229,7 @@ textarea,
 select {
   font-size: 15pt;
   line-height: 1.85em;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Noto Sans TC", "微軟正黑體", "Heiti TC", "PingFang TC", sans-serif;
   font-weight: 300;
 }
 
@@ -599,10 +599,16 @@ hr:after {
 .re-result h2 {
   font-size: 2rem;
   color: #333333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2em;
   text-align: center;
 }
 
+.day-divider {
+  margin-top: -4em;         /* hr 緊貼 h2 */
+  margin-bottom: 5em;  /* hr 和「早上」間距拉開 */
+  border: none;
+  border-top: 1px solid #bbb;
+}
 .re-result p {
   font-size: 1rem;
   font-weight: bold;
@@ -739,7 +745,7 @@ body,
 }
 .loading {
   font-size: 50px;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Noto Sans TC", "微軟正黑體", "Heiti TC", "PingFang TC", sans-serif;
   font-weight: 500;
   text-align: center;
   span {
@@ -2635,7 +2641,7 @@ button.alt:hover,
   text-rendering: auto;
   line-height: 1;
   text-transform: none !important;
-  font-family: "Font Awesome 5 Free";
+ font-family: "Noto Sans TC", "微軟正黑體", "Heiti TC", "PingFang TC", sans-serif;
   font-weight: 400;
 }
 
@@ -2653,7 +2659,7 @@ button.alt:hover,
 }
 
 .icon.brands:before {
-  font-family: "Font Awesome 5 Brands";
+  font-family:  "Noto Sans TC", "微軟正黑體", "Heiti TC", "PingFang TC", sans-serif;
 }
 
 .icon.circled {
@@ -3325,7 +3331,7 @@ body.homepage.is-preload #header:after {
     text-rendering: auto;
     line-height: 1;
     text-transform: none !important;
-    font-family: "Font Awesome 5 Free";
+    font-family: "Noto Sans TC", "微軟正黑體", "Heiti TC", "PingFang TC", sans-serif;
     font-weight: 900;
   }
 
