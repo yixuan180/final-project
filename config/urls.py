@@ -17,16 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
-
-
-def test_view(request):
-    return HttpResponse("Test OK")
+from planner import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('emotion/', include('emotion.urls')),  
-    path('fate_dice/', include('fate_dice.urls')),  
-    path('planner/', include('planner.urls')),  
+    path('emotion/', include('emotion.urls')),
+    path('fate_dice/', include('fate_dice.urls')),
+    path('planner/', include('planner.urls')),
+    path('', views.index_view, name='home'),
 ]
-
 

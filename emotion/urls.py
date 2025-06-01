@@ -2,8 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('generate-by-emotion/', views.generate_by_emotion, name='generate_by_emotion'),
-    path('emotionResult/', views.result_view, name='emotion_result'),
-    path('', views.emotion_view, name='emotion'), 
+    path('', views.emotion_view, name='emotion'),  
+    path('emotionResult/', views.emotion_result_view, name='emotionResult'),  
+    path('generate-by-emotion/', views.generate_by_emotion, name='generate_by_emotion'),  
 ]
-

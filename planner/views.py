@@ -7,11 +7,19 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.shortcuts import render
 
+def index_view(request):
+    return render(request, 'index.html')
+
+def planner_view(request):
+    return render(request, 'planner.html')
+
+def plannerResult_view(request):
+    return render(request, 'plannerResult.html')
+
 # 設定 Gemini API 金鑰
 genai.configure(api_key="AIzaSyAGsPf8khZvCh6g_4PIhQ1ltUJKV-11lu0")
 
-def planner_view(request):
-    return render(request, 'planner/planner.html')
+
 
 @csrf_exempt
 def generate_itinerary(request):

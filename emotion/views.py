@@ -7,8 +7,14 @@ from django.shortcuts import render
 def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需要這個
     return render(request, 'emotion.html')
 
-def result_view(request): # **新增這個函式**，用於渲染 result.html
-    return render(request, 'emotionResult.html')
+def emotion_result_view(request):
+    emotion = request.GET.get('emotion')
+    city = request.GET.get('city')
+    context = {
+        'emotion': emotion,
+        'city': city,
+    }
+    return render(request, 'emotionResult.html', context)
 
 @csrf_exempt
 def generate_by_emotion(request):
