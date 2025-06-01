@@ -14,6 +14,25 @@
     />
   </head>
 
+    <!-- 匯出 PDF 套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- 匯出 PDF 功能 -->
+  <script>
+    function exportPDF() {
+      const element = document.getElementById("resultContainer");
+      const opt = {
+        margin: 0.5,
+        filename: "我的旅行行程.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "cm", format: [21, 90], orientation: "portrait" },
+        pagebreak: { mode: ["css", "legacy"] },
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+
   <body class="no-sidebar is-preload">
     <div id="page-wrapper">
       <!-- Nav -->
@@ -35,6 +54,14 @@
       </p>
     </header>
   </article>
+
+  <div style="text-align: center; margin-top: -1.5em; margin-bottom: 1em;">
+    <a
+      class="button" 
+      onclick="exportPDF()"
+      > 匯出 PDF
+    </a>
+  </div>  
 
   <div class="re-box">
     <div class="re-container" id="resultContainer">
