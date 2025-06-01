@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const regionKey = cityToRegionKey[city] || "台北";
 
   // 發送 API 請求
-  fetch('http://127.0.0.1:8000/emotion/generate-by-emotion/', {
+  fetch('/emotion/generate-by-emotion/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

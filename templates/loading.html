@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loading</title>
-    <link rel="stylesheet" href="../static/css/main.css" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <noscript
       ><link rel="stylesheet" href="assets/css/noscript.css"
     /></noscript>
@@ -38,14 +40,14 @@
       </div>
     </div>
 
-    <script src="../static/js/jquery.min.js"></script>
-    <script src="../static/js/jquery.dropotron.min.js"></script>
-    <script src="../static/js/jquery.scrolly.min.js"></script>
-    <script src="../static/js/jquery.scrollex.min.js"></script>
-    <script src="../static/js/browser.min.js"></script>
-    <script src="../static/js/breakpoints.min.js"></script>
-    <script src="../static/js/util.js"></script>
-    <script src="../static/js/main.js"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+    <script src="{% static 'js/browser.min.js' %}"></script>
+    <script src="{% static 'js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // 從 sessionStorage 讀取請求資料
@@ -81,18 +83,18 @@
                 );
                 sessionStorage.setItem("itineraryMessage", data.message); // 也將訊息儲存起來
                 // 導向到結果頁面
-                window.location.href = "./plannerResult.html"; // 請確認你的結果頁面名稱
+                window.location.href = "/planner/plannerResult/"; // 請確認你的結果頁面名稱
               } else {
                 alert("行程生成失敗: " + data.message);
                 // 如果失敗，可以考慮導回 planner.html 或顯示錯誤訊息
-                window.location.href = "./planner.html";
+                window.location.href = "/planner/";
               }
             })
             .catch((error) => {
               console.error("API 呼叫錯誤:", error);
               alert("發生錯誤: " + error.message);
               // 發生錯誤時導回 planner.html
-              window.location.href = "./planner.html";
+              window.location.href = "/planner/";
             });
         } 
       });

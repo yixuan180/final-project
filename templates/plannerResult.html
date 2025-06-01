@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>推薦結果</title>
-    <link rel="stylesheet" href="../static/css/main.css" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">  
     <noscript
       ><link rel="stylesheet" href="assets/css/noscript.css"
     /></noscript>
@@ -38,10 +40,10 @@
       <!-- Nav -->
       <nav id="nav">
         <ul>
-          <li><a href="index.html">首頁</a></li>
-          <li><a href="./planner.html">智慧旅行排程</a></li>
-          <li><a href="./fate_dice.html">命運骰子</a></li>
-          <li><a href="./emotion.html">情緒導向推薦</a></li>
+          <li><a href="/">首頁</a></li>
+          <li><a href="/planner/">智慧旅行排程</a></li>
+          <li><a href="/fate_dice/">命運骰子</a></li>
+          <li><a href="/emotion/">情緒導向推薦</a></li>
         </ul>
       </nav>
 
@@ -86,15 +88,15 @@
     </div>
 
     <!-- Scripts -->
-    <script src="../static/js/jquery.min.js"></script>
-    <script src="../static/js/jquery.dropotron.min.js"></script>
-    <script src="../static/js/jquery.scrolly.min.js"></script>
-    <script src="../static/js/jquery.scrollex.min.js"></script>
-    <script src="../static/js/browser.min.js"></script>
-    <script src="../static/js/breakpoints.min.js"></script>
-    <script src="../static/js/util.js"></script>
-    <script src="../static/js/main.js"></script>
-    <script src="../static/js/plannerResult.js"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+    <script src="{% static 'js/browser.min.js' %}"></script>
+    <script src="{% static 'js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/plannerResult.js' %}"></script>
 
   </body>
 </html>

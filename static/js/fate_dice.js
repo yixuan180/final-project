@@ -19,7 +19,7 @@ document.querySelector(".startRec button").addEventListener("click", function (e
     formData.append("region", city);
     formData.append("theme", theme); // 雖然後端目前沒有用 theme 篩選，但保持傳遞
 
-    fetch("http://127.0.0.1:8000/fate_dice/roll_dice/", {
+    fetch("/fate_dice/roll_dice/", {
     method: "POST",
     headers: {
         "Content-Type": "application/x-www-form-urlencoded", // 更改為表單數據類型
@@ -43,7 +43,7 @@ document.querySelector(".startRec button").addEventListener("click", function (e
             localStorage.setItem("fateDiceResultCache", JSON.stringify(data));
 
             // 成功獲取數據後，導向到結果頁面
-            window.location.href = "./fate_diceResult.html";
+            window.location.href = "/fate_dice/fate_diceResult/";
         } else {
             alert("命運骰子推薦失敗: " + data.message);
         }

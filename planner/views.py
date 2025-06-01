@@ -16,6 +16,9 @@ def planner_view(request):
 def plannerResult_view(request):
     return render(request, 'plannerResult.html')
 
+def loading_view(request):
+    return render(request, 'loading.html')
+
 # 設定 Gemini API 金鑰
 genai.configure(api_key="AIzaSyAGsPf8khZvCh6g_4PIhQ1ltUJKV-11lu0")
 

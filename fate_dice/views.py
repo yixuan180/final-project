@@ -8,6 +8,13 @@ from django.conf import settings
 def fate_dice_view(request):
     return render(request, 'fate_dice.html')
 
+def fate_diceResult_view(request):
+    return render(request, 'fate_diceResult.html')
+
+def fate_diceDetail_view(request):
+    return render(request, 'fate_diceDetail.html')
+
+
 @csrf_exempt
 def roll_dice(request):
     if request.method != 'POST':

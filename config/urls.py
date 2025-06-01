@@ -24,6 +24,7 @@ urlpatterns = [
     path('emotion/', include('emotion.urls')),
     path('fate_dice/', include('fate_dice.urls')),
     path('planner/', include('planner.urls')),
-    path('', views.index_view, name='home'),
+    path('', views.index_view, name='index'),
 ]
+
 

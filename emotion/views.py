@@ -8,13 +8,7 @@ def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需
     return render(request, 'emotion.html')
 
 def emotion_result_view(request):
-    emotion = request.GET.get('emotion')
-    city = request.GET.get('city')
-    context = {
-        'emotion': emotion,
-        'city': city,
-    }
-    return render(request, 'emotionResult.html', context)
+    return render(request, 'emotionResult.html')
 
 @csrf_exempt
 def generate_by_emotion(request):

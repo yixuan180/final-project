@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setTimeout(() => {
-      window.location.href = "./fate_dice.html";
+      window.location.href = "{% url 'fate_dice' %}";
     }, 2000);
     return;
   }
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>分類：</strong>${display(d.category)}</p>
           <p><strong>主題：</strong>${display(d.theme)}</p>
           <div style="text-align: center; margin-top: 1em;">
-            <a href="fate_diceDetail.html?id=${d.id}" class="button">查看詳情</a>
+            <a href="${fate_dicedetailUrl}" class="button">查看詳情</a>
           </div>
         </div>`
       )
