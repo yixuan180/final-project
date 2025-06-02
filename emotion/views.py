@@ -2,13 +2,17 @@ from planner.models import Destination
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需要這個
     return render(request, 'emotion.html')
 
 def emotion_result_view(request):
     return render(request, 'emotionResult.html')
+
+def emotion_detail(request, id):
+    destination = get_object_or_404(Destination, pk=id)
+    return render(request, 'emotionDetail.html', {'destination': destination})
 
 @csrf_exempt
 def generate_by_emotion(request):

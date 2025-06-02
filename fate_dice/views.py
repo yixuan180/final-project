@@ -2,8 +2,7 @@ from planner.models import Destination, Travel_Themes
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random
-from django.shortcuts import render
-from django.conf import settings 
+from django.shortcuts import render, get_object_or_404
 
 def fate_dice_view(request):
     return render(request, 'fate_dice.html')
@@ -11,8 +10,9 @@ def fate_dice_view(request):
 def fate_diceResult_view(request):
     return render(request, 'fate_diceResult.html')
 
-def fate_diceDetail_view(request):
-    return render(request, 'fate_diceDetail.html')
+def fate_dice_detail(request, id):
+    destination = get_object_or_404(Destination, pk=id)
+    return render(request, 'fate_diceDetail.html', {'destination': destination})
 
 
 @csrf_exempt

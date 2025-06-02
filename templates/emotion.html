@@ -28,7 +28,7 @@
       <!-- Nav -->
       <nav id="nav">
         <ul>
-          <li><a href="/index/">首頁</a></li>
+          <li><a href="/">首頁</a></li>
           <li><a href="/planner/">智慧旅行排程</a></li>
           <li><a href="/fate_dice/">命運骰子</a></li>
           <li><a href="/emotion/">情緒導向推薦</a></li>
@@ -131,6 +131,64 @@
     <script src="{% static 'js/breakpoints.min.js' %}"></script>
     <script src="{% static 'js/util.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/emotion.js' %}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const emotionButtons = document.querySelectorAll(".firstemo");
+      const citySelect = document.getElementById("city");
+      const openModalBtn = document.getElementById("openModalBtn");
+
+      let selectedEmotion = null;
+
+      const emotionMap = {
+        "1": "開心",
+        "2": "放鬆",
+        "3": "焦慮",
+        "4": "難過",
+      };
+
+      // 點選情緒圖片
+      emotionButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          emotionButtons.forEach((b) => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          selectedEmotion = btn.getAttribute("data-index");
+          checkFormValid();
+        });
+      });
+
+      // 監聽城市選擇
+      citySelect.addEventListener("change", checkFormValid);
+
+      // 檢查是否可啟用按鈕
+      function checkFormValid() {
+        openModalBtn.disabled = !(selectedEmotion && citySelect.value);
+      }
+
+      // 點擊按鈕事件
+      openModalBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+ 
+        if (!selectedEmotion || citySelect.value === "") {
+          alert("請先選擇一個情緒與縣市！");
+          return;
+        }
+
+         // 清除上次的推薦結果，保留情緒與地區
+        localStorage.removeItem("emotionResults");
+
+        const emotionName = emotionMap[selectedEmotion];
+        const cityValue = citySelect.value;
+
+        localStorage.setItem("emotionParam", emotionName);
+        localStorage.setItem("cityParam", cityValue);
+
+        window.location.href = "{% url 'emotionResult' %}";
+      });
+
+      // 初始檢查一次表單
+      checkFormValid();
+    });
+    </script>
   </body>
 </html>
