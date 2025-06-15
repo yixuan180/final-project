@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from planner.models import Travel_Themes 
 import json
 
-# Create your models here.
-
 class Theme_Random_Dice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dice_rolls', verbose_name="使用者")
     theme = models.ForeignKey(Travel_Themes, on_delete=models.CASCADE, related_name='dice_rolls', verbose_name="旅行主題")

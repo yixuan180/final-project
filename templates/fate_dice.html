@@ -225,18 +225,17 @@
 
           const formData = new URLSearchParams();
           formData.append("region", city);
-          formData.append("theme", theme); // 雖然後端目前沒有用 theme 篩選，但保持傳遞
+          formData.append("theme", theme); 
 
           fetch("/fate_dice/roll_dice/", {
           method: "POST",
           headers: {
-              "Content-Type": "application/x-www-form-urlencoded", // 更改為表單數據類型
+              "Content-Type": "application/x-www-form-urlencoded", 
           },
-          body: formData, // 直接傳遞 formData
+          body: formData, 
           })
           .then((response) => {
               if (!response.ok) {
-              // 處理非 2xx 響應
               return response.json().then((errorData) => {
                   throw new Error(errorData.message || "Fate Dice API 請求失敗");
               });

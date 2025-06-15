@@ -146,16 +146,14 @@
       document
         .getElementById("customScheduleForm")
         .addEventListener("submit", function (event) {
-          event.preventDefault(); // 阻止表單預設提交行為
+          event.preventDefault(); 
 
-          // 獲取使用者輸入的值
           const city = document.getElementById("city").value;
           const budgetRange = document.getElementById("budgetRange").value;
           const preference = document.getElementById("preference").value;
           const startDate = document.getElementById("startDate").value;
           const endDate = document.getElementById("endDate").value;
 
-          // 簡單處理預算範圍，取上限或預設值
           let budget;
           if (budgetRange.includes("-")) {
             const parts = budgetRange.split("-");
@@ -166,7 +164,6 @@
             budget = 6000;
           }
 
-          // 構建要發送到後端的數據對象
           const requestData = {
             region: city, 
             budget: budget, 
@@ -175,13 +172,11 @@
             end_date: endDate,
           };
 
-          // 將請求資料儲存到 sessionStorage
           sessionStorage.setItem(
             "plannerRequestData",
             JSON.stringify(requestData)
           );
 
-          // 導向到 loading.html
           window.location.href = "/planner/loading/";
         });
     </script>

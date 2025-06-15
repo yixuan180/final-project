@@ -157,15 +157,12 @@
         });
       });
 
-      // 監聽城市選擇
       citySelect.addEventListener("change", checkFormValid);
 
-      // 檢查是否可啟用按鈕
       function checkFormValid() {
         openModalBtn.disabled = !(selectedEmotion && citySelect.value);
       }
 
-      // 點擊按鈕事件
       openModalBtn.addEventListener("click", (e) => {
         e.preventDefault();
  
@@ -174,7 +171,6 @@
           return;
         }
 
-         // 清除上次的推薦結果，保留情緒與地區
         localStorage.removeItem("emotionResults");
 
         const emotionName = emotionMap[selectedEmotion];
@@ -186,7 +182,6 @@
         window.location.href = "{% url 'emotionResult' %}";
       });
 
-      // 初始檢查一次表單
       checkFormValid();
     });
     </script>

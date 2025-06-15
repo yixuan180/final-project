@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (Array.isArray(itineraryData) && itineraryData.length > 0) {
         itineraryData.forEach((dayPlan, index) => {
           const dayBox = document.createElement("div");
-          dayBox.classList.add("re-result"); // 保持你原有的 class 名稱
+          dayBox.classList.add("re-result"); 
 
           dayBox.innerHTML = `<h2>${dayPlan.day || `第 ${index + 1} 天`}</h2>`;
-          dayBox.innerHTML += `<hr class="day-divider" />`; // 加入分隔線
+          dayBox.innerHTML += `<hr class="day-divider" />`;
 
           // 輔助函數：解析並格式化時間段內容
           const formatTimeSlot = (timeSlotContent) => {
@@ -31,32 +31,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let htmlContent = '<ul class="activity-list">';
 
-            // 嘗試解析景點名稱和說明
-            // 簡化處理：假設括號內是費用或補充說明
-            // 更複雜的解析需要更強大的正則表達式或後端結構化數據
-            const parts = timeSlotContent.split('. '); // 嘗試用句號加空格分割
+            // 解析景點名稱和說明
+            const parts = timeSlotContent.split('. ');
             
             parts.forEach(part => {
-                if (part.trim() === '') return; // 跳過空部分
+                if (part.trim() === '') return; 
 
                 let displayPart = part.trim();
-                let feeMatch = displayPart.match(/\(([^)]*?元|免費)\)/); // 尋找括號內的費用或免費信息
+                let feeMatch = displayPart.match(/\(([^)]*?元|免費)\)/);
 
                 let feeInfo = '';
                 if (feeMatch) {
                     feeInfo = ` <span class="fee-info">${feeMatch[0]}</span>`;
-                    displayPart = displayPart.replace(feeMatch[0], '').trim(); // 移除費用信息
+                    displayPart = displayPart.replace(feeMatch[0], '').trim(); 
                 }
 
                 // 嘗試提取地點
-                let locationMatch = displayPart.match(/前往([^，、。]*?)，/); // 提取"前往"後到逗號前的內容
+                let locationMatch = displayPart.match(/前往([^，、。]*?)，/);
                 let location = '';
-                if (locationMatch && locationMatch[1].length < 20) { // 避免匹配到過長的內容
+                if (locationMatch && locationMatch[1].length < 20) { /
                     location = `<strong>${locationMatch[1].trim()}</strong>：`;
-                    // 從顯示內容中移除地點，保留活動描述
                     displayPart = displayPart.replace(`前往${locationMatch[1].trim()}，`, '').trim();
                 } else {
-                    location = ''; // 沒有明確地點，就不要加粗
+                    location = '';
                 }
 
                 htmlContent += `<li>${location}${displayPart}${feeInfo}</li>`;

@@ -24,10 +24,8 @@ def roll_dice(request):
             "data": None
         }, status=405)
 
-    # 這裡接前端骰子的結果）
     selected_theme = request.POST.get('theme')
 
-    # 這裡接前端使用者給的縣市
     region = request.POST.get('region', '台北')
 
     region_mapping = {
@@ -52,7 +50,6 @@ def roll_dice(request):
 
     actual_region_name = region_mapping.get(region, region)
 
-    # 根據縣市＋主題篩選景點
     try:
         # 1. 先根據名稱取得 Travel_Themes 物件
         theme_obj = Travel_Themes.objects.get(name=selected_theme)
@@ -60,7 +57,7 @@ def roll_dice(request):
         # 2. 使用 theme 物件進行精確篩選
         filtered_destinations = Destination.objects.filter(
             address__icontains=actual_region_name,
-            theme=theme_obj  # <--- 將這裡改為精確匹配！
+            theme=theme_obj  
         )
 
     except Travel_Themes.DoesNotExist:
@@ -96,12 +93,12 @@ def roll_dice(request):
         "category": d.category,
         "opening_hours":d.opening_hours,
         "contact_info":d.contact_info,
-        "theme": d.theme.name # 這個是從資料庫取出的景點主題
+        "theme": d.theme.name 
     } for d in selected]
 
     return JsonResponse({
         "success": True,
         "message": f"🎲 你擲出的主題是「{selected_theme}」，這是我們在「{region}」推薦的行程景點！",
-        "theme": selected_theme, # 這個是隨機骰出的主題
+        "theme": selected_theme,
         "data": data
     })

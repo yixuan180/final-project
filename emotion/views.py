@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 from django.shortcuts import render, get_object_or_404
 
-def emotion_view(request): # 如果情緒導向推薦也有獨立頁面，你需要這個
+def emotion_view(request): 
     return render(request, 'emotion.html')
 
 def emotion_result_view(request):
@@ -23,10 +23,8 @@ def generate_by_emotion(request):
             "data": None
         }, status=405)
 
-    # 這裡接前端使用者給的情緒
     emotion = request.POST.get('emotion', '放鬆')
 
-    # 這裡接前端使用者給的縣市
     region = request.POST.get('region', '台北')
 
     filtered_destinations = Destination.objects.filter(
@@ -34,7 +32,6 @@ def generate_by_emotion(request):
         suitable_emotions__name__icontains=emotion
     )
 
-    
     # 隨機抽三個景點
     selected = random.sample(list(filtered_destinations), min(3, len(filtered_destinations)))
 

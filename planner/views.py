@@ -50,8 +50,6 @@ def generate_itinerary(request):
     start_date = data.get('start_date', '2025-06-01')
     end_date = data.get('end_date', '2025-06-04')
 
-    
-    # 縣市名稱映射表：鍵(key)是前端傳來的英文值，值(value)是資料庫中對應的中文值
     region_mapping = {
         'keelung': '基隆',
         'taipei': '台北',
@@ -71,7 +69,7 @@ def generate_itinerary(request):
         'hualien': '花蓮',
         'taitung': '臺東',
     }
-    # 主題名稱映射表：鍵(key)是前端傳來的英文值，值(value)是資料庫中對應的中文值
+
     theme_mapping = {
         'food': '美食之旅',
         'nature': '自然風景',
@@ -173,7 +171,6 @@ def parse_itinerary_to_json(itinerary_text):
             else:
                 day_blocks.append(itinerary_text[start_index:])
     
-    # 輔助函數：清理 Markdown 符號和多餘的空格/換行
     def clean_markdown(text):
         if text:
             text = re.sub(r'(\*\*|\*|__|_)', '', text) 
@@ -191,7 +188,6 @@ def parse_itinerary_to_json(itinerary_text):
         day_match_in_block = re.search(day_header_pattern, day_content_to_parse)
         if day_match_in_block:
             day_title = day_match_in_block.group(1).strip()
-            # 確保從標題結束的位置開始解析，避免重複解析標題
             day_content_to_parse = day_content_to_parse[day_match_in_block.end():].strip()
         
         morning = None

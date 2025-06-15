@@ -81,19 +81,17 @@
                   "itineraryData",
                   JSON.stringify(data.data),
                 );
-                sessionStorage.setItem("itineraryMessage", data.message); // 也將訊息儲存起來
+                sessionStorage.setItem("itineraryMessage", data.message); 
                 // 導向到結果頁面
-                window.location.href = "/planner/plannerResult/"; // 請確認你的結果頁面名稱
+                window.location.href = "/planner/plannerResult/"; 
               } else {
                 alert("行程生成失敗: " + data.message);
-                // 如果失敗，可以考慮導回 planner.html 或顯示錯誤訊息
                 window.location.href = "/planner/";
               }
             })
             .catch((error) => {
               console.error("API 呼叫錯誤:", error);
               alert("發生錯誤: " + error.message);
-              // 發生錯誤時導回 planner.html
               window.location.href = "/planner/";
             });
         } 

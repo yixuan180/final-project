@@ -104,12 +104,11 @@
 
       const parsed = JSON.parse(rawData);
 
-      // 存入 localStorage 快取（下次直接用）
+      // 存入 localStorage 快取
       localStorage.setItem("fateDiceResultCache", JSON.stringify(parsed));
 
       renderFateResult(parsed);
 
-      // 渲染邏輯封裝成函式
       function renderFateResult(parsed) {
         const data = parsed.data || [];
 

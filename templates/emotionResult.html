@@ -36,7 +36,6 @@
       </header>
     </article>
 
-    <!-- 把重新推薦放這裡 -->
     <div style="text-align: center; margin-top: -1.5em; margin-bottom: 1em;">
       <a
         href="javascript:void(0)"
@@ -51,7 +50,6 @@
 
     <div class="re-box">
       <div class="re-container" id="resultContainer">
-        <!-- JavaScript 會把推薦行程放進來 -->
       </div>
     </div>
   </div>
@@ -137,7 +135,6 @@
 
       const regionKey = cityToRegionKey[city] || "台北";
 
-      // 發送 API 請求
       fetch('/emotion/generate-by-emotion/', {
         method: 'POST',
         headers: {
@@ -151,7 +148,7 @@
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          const resultsWithId = data.data;  // ✅ 保留原始 id
+          const resultsWithId = data.data;  
           localStorage.setItem("emotionResults", JSON.stringify(resultsWithId));
           localStorage.setItem("emotionParam", emotion);
           localStorage.setItem("cityParam", city);

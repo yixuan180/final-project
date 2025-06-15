@@ -22,7 +22,7 @@
   const startInput = document.getElementById("startDate");
   const endInput = document.getElementById("endDate");
 
-  if (!startInput || !endInput) return; // 如果找不到元素就跳出
+  if (!startInput || !endInput) return; 
 
   startInput.addEventListener("change", () => {
     const startDate = new Date(startInput.value);
@@ -39,7 +39,6 @@
   });
 }
 
-// 等 DOM 都載入完再執行
 window.addEventListener("DOMContentLoaded", setupDateLimit);
 
 
