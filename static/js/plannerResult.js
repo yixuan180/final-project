@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // 嘗試提取地點
                 let locationMatch = displayPart.match(/前往([^，、。]*?)，/);
                 let location = '';
-                if (locationMatch && locationMatch[1].length < 20) { /
+                if (locationMatch && locationMatch[1].length < 20) { 
                     location = `<strong>${locationMatch[1].trim()}</strong>：`;
                     displayPart = displayPart.replace(`前往${locationMatch[1].trim()}，`, '').trim();
                 } else {
