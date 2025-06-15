@@ -44,8 +44,8 @@ class Itinerary(models.Model):
     """行程模型"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='itineraries', verbose_name="使用者")
     theme = models.ForeignKey(Travel_Themes, on_delete=models.CASCADE, related_name='itineraries', verbose_name="行程主題")
-    destination_ids = models.TextField(verbose_name="景點ID列表")  # 存儲JSON格式的目的地ID數組
-    activity_ids = models.TextField(verbose_name="活動ID列表")  # 存儲JSON格式的活動ID數組
+    destination_ids = models.TextField(verbose_name="景點ID列表")  
+    activity_ids = models.TextField(verbose_name="活動ID列表")  
     start_date = models.DateField(verbose_name="行程開始日期")
     end_date = models.DateField(verbose_name="行程結束日期")
     min_budget = models.FloatField(verbose_name="最低預算")
